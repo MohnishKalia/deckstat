@@ -1,0 +1,3 @@
+# deckstat
+
+Check your deck!
