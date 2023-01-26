@@ -28,6 +28,7 @@ jobs:
       - name: Node Setup
         uses: actions/setup-node@v3.6.0
       - run: npm install
+      - run: npm run build
       - name: Check GitHub Pages status
         uses: crazy-max/ghaction-github-status@v3
         with:
