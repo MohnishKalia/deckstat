@@ -1,45 +1,46 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import Counter from './lib/Counter.svelte'
+    import Navbar from "./lib/Navbar.svelte";
+    import Counter from "./lib/Counter.svelte";
+    import Footer from "./lib/Footer.svelte";
 </script>
 
 <main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer"> 
-      <img src="/vite.svg" class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer"> 
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+    <Navbar />
 
-  <div class="card">
-    <Counter />
-  </div>
+    <div
+        class="hero min-h-[50vh]"
+        style="background-image: url(https://pixabay.com/get/g56099e0dbbb60c83bf99bb442ef35f48ea7babdca5a4efc601edbf54bf88d7d4d0ec9883f0fd5df4a8fc8d40032920c6_1280.jpg);"
+    >
+        <div class="hero-overlay bg-opacity-60" />
+        <div class="hero-content text-center text-neutral-content">
+            <div class="max-w-md">
+                <h1 class="mb-5 text-5xl font-bold">Statistics For You</h1>
+                <p class="mb-5">
+                    Deckstat provides the ability to get in-depth insights into
+                    your Yu-Gi-Oh decks, whether on official or unoffical
+                    platforms. Try the service today!
+                </p>
+                <div class="form-control w-full">
+                    <label for="decklist" class="label">
+                        <a href="#top" class="label-text-alt">Need Help?</a>
+                    </label>
+                    <input
+                        type="text"
+                        id="decklist"
+                        placeholder="Provide a link to a decklist"
+                        class="input input-bordered w-full"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
+    <span class="badge">
+        <Counter />
+    </span>
 
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+    <Footer />
 </main>
 
-<style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
+<style lang="postcss">
 </style>
