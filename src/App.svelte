@@ -1,9 +1,11 @@
 <script lang="ts">
     import Navbar from "./lib/Navbar.svelte";
-    import Counter from "./lib/Counter.svelte";
     import Footer from "./lib/Footer.svelte";
     import { IconArrowRight } from "@tabler/icons-svelte";
+    import initSqlJs from "sql.js";
+    import sqlWasm from "sql.js/dist/sql-wasm.wasm?url";
     import TarotCardImg from "./assets/images/tarot-991041_1920.jpg";
+    import CardsCDB from "../thirdparty/BabelCDB/cards.cdb?url";
 
     interface YGOCard {
         name: string;
@@ -30,7 +32,7 @@
 
         const ca = import.meta.env.DEV
             ? "https://cors-anywhere.herokuapp.com/"
-            : "https://mohnishkalia-cors-proxy.onrender.com";
+            : "https://mohnishkalia-cors-proxy.onrender.com/";
         const deckPromise = fetch(ca + urlObj).then((res) => res.text());
         const deckDoc = await deckPromise;
 
@@ -74,6 +76,38 @@
             sides: sideObjs,
         };
     }
+
+    async function getDatabase() {
+        const dataPromise = fetch(CardsCDB).then((res) => res.arrayBuffer());
+        const buf = await dataPromise;
+        return buf;
+    }
+
+    async function getSQLJS() {
+        const sqlPromise = initSqlJs({
+            locateFile: () => sqlWasm,
+        });
+        return await sqlPromise;
+    }
+
+    let dbResult: string;
+
+    async function getSetDB() {
+        const dbData = await getDatabase().then((buf) => new Uint8Array(buf));
+        const SQL = await getSQLJS();
+        const db = new SQL.Database(new Uint8Array(dbData));
+        const [cardData] = db.exec(`
+            select texts.id, name, desc, category
+            from texts 
+            inner join datas
+                on texts.id = datas.id
+            limit 100;
+        `);
+        console.log({ cardData });
+        dbResult = JSON.stringify(cardData, null, 2);
+    }
+
+    getSetDB();
 </script>
 
 <main>
@@ -127,6 +161,10 @@
 
         {#if decklist}
             <pre>{JSON.stringify(decklist, null, 2)}</pre>
+        {/if}
+
+        {#if dbResult}
+            <pre>{dbResult}</pre>
         {/if}
     </section>
 
