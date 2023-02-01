@@ -5,3 +5,4 @@ Check your deck!
 ## Attributions
 
 - https://pixabay.com/photos/tarot-cards-magic-fortune-telling-991041/
+- https://cors-anywhere.herokuapp.com/corsdemo

@@ -15,6 +15,7 @@
     "@sveltejs/vite-plugin-svelte": "^2.0.0",
     "@tsconfig/svelte": "^3.0.0",
     "autoprefixer": "^10.4.13",
+    "daisyui": "^2.49.0",
     "gh-pages": "^5.0.0",
     "postcss": "^8.4.21",
     "svelte": "^3.54.0",
@@ -25,6 +26,6 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
-    "daisyui": "^2.49.0"
+    "@tabler/icons-svelte": "^2.1.2"
   }
 }
