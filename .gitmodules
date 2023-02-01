@@ -1,0 +1,3 @@
+[submodule "thirdparty/BabelCDB"]
+	path = thirdparty/BabelCDB
+	url = https://github.com/ProjectIgnis/BabelCDB.git
