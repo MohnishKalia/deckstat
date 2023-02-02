@@ -3,6 +3,9 @@
     import Footer from "./lib/Footer.svelte";
     import {
         IconArrowRight,
+        IconChartHistogram,
+        IconTimelineEvent,
+        IconTallymarks,
         // IconDatabaseOff,
         // IconDatabaseExport,
     } from "@tabler/icons-svelte";
@@ -182,6 +185,36 @@
             .sort((c1, c2) => c2.wordCount - c1.wordCount);
     }
 
+    function getCentralTendencies(arr: number[]) {
+        arr.sort((a, b) => a - b);
+
+        const sum = arr.reduce((sum, cur) => sum + cur, 0);
+
+        const histogram = arr.reduce((prev, cur) => {
+            if (!prev[cur]) prev[cur] = 1;
+            else prev[cur]++;
+            return prev;
+        }, {} as Record<number, number>);
+        const histogramArr = Object.entries(histogram).map(([val, cnt]) => ({
+            val,
+            cnt,
+        }));
+
+        const mean = sum / arr.length;
+        const median = arr[Math.floor(arr.length / 2)]; // needs to be an arr element
+        const mode = parseFloat(
+            histogramArr.sort((v1, v2) => v2.cnt - v1.cnt)[0].val
+        );
+
+        // console.log({ arr, sum, histogram, mean, median, mode });
+
+        return {
+            mean,
+            median,
+            mode,
+        };
+    }
+
     getSetDB().then((ndb) => (db = ndb));
 
     $: dbNotLoaded = db ? "" : "btn-disabled";
@@ -256,14 +289,19 @@
         {/if}
     </section>
 
-    {#if decklist}
+    {#if wordCounts}
+        {@const mct = getCentralTendencies(
+            wordCounts.map((wc) => wc.wordCount)
+        )}
+
         <section class="container mx-auto px-4">
             <h2 class="my-5 text-3xl font-bold" id="content">Word Count</h2>
             <p>
                 Whether or not people can play against your rouge deck without
-                live commentary of your effects.
+                live commentary on each effects.
             </p>
-            <h3 class="my-5 text-2xl font-bold">
+
+            <h3 class="my-5 text-2xl font-bold text-left">
                 The three most wordy cards are...
             </h3>
             <div class="flex gap-3">
@@ -273,7 +311,7 @@
                             <h2 class="card-title">#{i + 1}</h2>
                             <p>{top_card.name}</p>
                             <small class="text-base-content"
-                                >{top_card.wordCount}</small
+                                >{top_card.wordCount} words</small
                             >
                         </div>
                     </div>
@@ -282,10 +320,10 @@
 
             <div class="divider">AND</div>
 
-            <h3 class="my-5 text-2xl font-bold">
+            <h3 class="my-5 text-2xl font-bold text-right">
                 Your most readable cards are...
             </h3>
-            <div class="flex gap-3">
+            <div class="flex gap-3 justify-end">
                 {#each wordCounts
                     .slice(-3)
                     .reverse() as bot_card, i (bot_card.name)}
@@ -293,10 +331,52 @@
                         <div class="card-body items-center text-center">
                             <h2 class="card-title">#{i + 1}</h2>
                             <p>{bot_card.name}</p>
-                            <small>{bot_card.wordCount}</small>
+                            <small>{bot_card.wordCount} words</small>
                         </div>
                     </div>
                 {/each}
+            </div>
+
+            <div class="divider" />
+
+            <h3 class="my-5 text-2xl font-bold text-center">
+                And for everything, you have...
+            </h3>
+            <div class="flex gap-3 justify-center">
+                <div class="stats shadow-inner bg-base-200">
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconChartHistogram class="inline-block" />
+                        </div>
+                        <div class="stat-title">Mean</div>
+                        <div class="stat-value">
+                            {mct.mean.toFixed(0)} words
+                        </div>
+                        <div class="stat-desc">Average wc.</div>
+                    </div>
+
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconTimelineEvent class="inline-block" />
+                        </div>
+                        <div class="stat-title">Median</div>
+                        <div class="stat-value">
+                            {mct.median.toFixed(0)} words
+                        </div>
+                        <div class="stat-desc">Halfway wc.</div>
+                    </div>
+
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconTallymarks class="inline-block" />
+                        </div>
+                        <div class="stat-title">Mode</div>
+                        <div class="stat-value">
+                            {mct.mode.toFixed(0)} words
+                        </div>
+                        <div class="stat-desc">Most Frequent wc.</div>
+                    </div>
+                </div>
             </div>
         </section>
     {/if}
