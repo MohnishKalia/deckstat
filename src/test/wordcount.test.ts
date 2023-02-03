@@ -1,4 +1,5 @@
 import { wordCount } from "../lib/utils";
+import { testingDescs } from "./testdata";
 
 describe('word count functional tests', () => {
     it('should be 0', () => {
@@ -12,4 +13,19 @@ describe('word count functional tests', () => {
         expect(wordCount('  once     ')).toBe(1);
         expect(wordCount('\r\nonce\t \n')).toBe(1);
     });
+
+    it.each(testingDescs.wordy)
+        ('wordy samples: wordCount($desc) -> $wordCount', ({ desc, wordCount: expectedWC }) => {
+            expect(wordCount(desc)).toBe(expectedWC);
+        });
+
+    it.each(testingDescs.special)
+        ('special character samples: wordCount($desc) -> $wordCount', ({ desc, wordCount: expectedWC }) => {
+            expect(wordCount(desc)).toBe(expectedWC);
+        });
+
+    it.each(testingDescs.pendulum)
+        ('pendulum samples: wordCount($desc) -> $wordCount', ({ desc, wordCount: expectedWC }) => {
+            expect(wordCount(desc)).toBe(expectedWC);
+        });
 });

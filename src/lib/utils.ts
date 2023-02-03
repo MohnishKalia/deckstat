@@ -1,5 +1,5 @@
 import type { CentralTendencies } from "../interfaces/common";
-import type { YGODecklist } from "../interfaces/ygo";
+import type { YGODecklist, YGOWordcount } from "../interfaces/ygo";
 
 export function wordCount(s: string): number {
     const normS = s
@@ -12,7 +12,7 @@ export function wordCount(s: string): number {
     return words.length;
 }
 
-export function getWordCounts(dl: YGODecklist) {
+export function getWordCounts(dl: YGODecklist): YGOWordcount[] {
     const allCards = Object.values(dl).flatMap((cardType) => cardType);
     // console.log({
     //     dl,
@@ -22,6 +22,7 @@ export function getWordCounts(dl: YGODecklist) {
 
     return allCards
         .map((c) => ({
+            id: c.id,
             name: c.name,
             desc: c.desc,
             wordCount: wordCount(c.desc),
@@ -59,8 +60,14 @@ export function getCentralTendencies(arr: number[]): CentralTendencies {
     // console.log({ arr, sum, histogram, mean, median, mode });
 
     return {
-        mean,
+        mean: Math.round(mean), // safe display
         median,
         mode,
     };
+}
+
+export function getMCT(wordCounts: YGOWordcount[]) {
+    return getCentralTendencies(
+        wordCounts.map((wc) => wc.wordCount)
+    );
 }

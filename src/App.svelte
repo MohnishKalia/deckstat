@@ -16,13 +16,13 @@
     } from "./interfaces/ygo";
     import Footer from "./lib/Footer.svelte";
     import Navbar from "./lib/Navbar.svelte";
-    import { getCentralTendencies, getWordCounts } from "./lib/utils";
+    import { getCentralTendencies, getMCT, getWordCounts } from "./lib/utils";
     import { getYDBDecklist } from "./lib/ydb";
 
     let decklist_url: string =
         "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11";
     let decklist: YGODecklist;
-    
+
     async function getDatabase() {
         const dataPromise = fetch(CardsCDB).then((res) => res.arrayBuffer());
         return dataPromise;
@@ -52,12 +52,15 @@
         ) as YDBDecklistEntries) {
             db.run("DROP TABLE IF EXISTS current_cards;");
             db.run("CREATE TEMP TABLE current_cards (name TEXT, num INTEGER);");
+            
+            db.run("BEGIN TRANSACTION;");
             for (const card of cards) {
                 db.run("INSERT INTO current_cards VALUES (?, ?);", [
                     card.name,
                     card.num,
                 ]);
             }
+            db.run("COMMIT;");
 
             const stmt = db.prepare(`
                 with arn as ( 
@@ -163,9 +166,8 @@
     </section>
 
     {#if wordCounts}
-        {@const mct = getCentralTendencies(
-            wordCounts.map((wc) => wc.wordCount)
-        )}
+        {@const mct = getMCT(wordCounts)}
+        <!-- {@debug decklist, wordCounts, mct} -->
 
         <section class="container mx-auto px-4">
             <h2 class="my-5 text-3xl font-bold" id="content">Word Count</h2>
@@ -223,7 +225,7 @@
                         </div>
                         <div class="stat-title">Mean</div>
                         <div class="stat-value">
-                            {mct.mean.toFixed(0)} words
+                            {mct.mean} words
                         </div>
                         <div class="stat-desc">Average wc.</div>
                     </div>
@@ -234,7 +236,7 @@
                         </div>
                         <div class="stat-title">Median</div>
                         <div class="stat-value">
-                            {mct.median.toFixed(0)} words
+                            {mct.median} words
                         </div>
                         <div class="stat-desc">Halfway wc.</div>
                     </div>
@@ -245,7 +247,7 @@
                         </div>
                         <div class="stat-title">Mode</div>
                         <div class="stat-value">
-                            {mct.mode.toFixed(0)} words
+                            {mct.mode} words
                         </div>
                         <div class="stat-desc">Most Frequent wc.</div>
                     </div>

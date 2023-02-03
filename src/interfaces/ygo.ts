@@ -18,3 +18,7 @@ export interface YGOCard extends YDBCardData {
 }
 
 export type YGODecklist = Record<keyof YDBDecklist, YGOCard[]>;
+
+export type YGOWordcount = Pick<YGOCard, 'id' | 'name' | 'desc'> & {
+    wordCount: number
+}
