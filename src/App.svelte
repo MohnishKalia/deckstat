@@ -1,96 +1,27 @@
 <script lang="ts">
-    import Navbar from "./lib/Navbar.svelte";
-    import Footer from "./lib/Footer.svelte";
     import {
         IconArrowRight,
         IconChartHistogram,
-        IconTimelineEvent,
         IconTallymarks,
-        // IconDatabaseOff,
-        // IconDatabaseExport,
+        IconTimelineEvent,
     } from "@tabler/icons-svelte";
     import initSqlJs, { type Database } from "sql.js";
     import sqlWasm from "sql.js/dist/sql-wasm.wasm?url";
-    import TarotCardImg from "./assets/images/tarot-991041_1920.jpg";
     import CardsCDB from "../thirdparty/BabelCDB/cards.cdb?url";
-
-    interface YDBCardData {
-        name: string;
-        num: number;
-    }
-
-    interface YDBDecklist {
-        monsters: YDBCardData[];
-        spells: YDBCardData[];
-        traps: YDBCardData[];
-        extras: YDBCardData[];
-        sides: YDBCardData[];
-    }
-    type YDBDecklistEntries = [keyof YDBDecklist, YDBCardData[]][];
-
-    interface YGOCard extends YDBCardData {
-        id: number;
-        desc: string;
-    }
-
-    type YGODecklist = Record<keyof YDBDecklist, YGOCard[]>;
+    import TarotCardImg from "./assets/images/tarot-991041_1920.jpg";
+    import type {
+        YDBDecklist,
+        YDBDecklistEntries,
+        YGODecklist,
+    } from "./interfaces/ygo";
+    import Footer from "./lib/Footer.svelte";
+    import Navbar from "./lib/Navbar.svelte";
+    import { getCentralTendencies, getMCT, getWordCounts } from "./lib/utils";
+    import { getYDBDecklist } from "./lib/ydb";
 
     let decklist_url: string =
         "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11";
     let decklist: YGODecklist;
-    const parser = new DOMParser();
-
-    async function getYDBDecklist(url: string): Promise<YDBDecklist> {
-        const urlObj = new URL(url);
-        if (urlObj.origin !== "https://www.db.yugioh-card.com")
-            throw new Error("invalid url");
-
-        const ca = import.meta.env.DEV
-            ? "https://cors-anywhere.herokuapp.com/"
-            : "https://mohnishkalia-cors-proxy.onrender.com/";
-        const deckPromise = fetch(ca + urlObj).then((res) => res.text());
-        const deckDoc = await deckPromise;
-
-        const ws = parser.parseFromString(deckDoc, "text/html");
-
-        const eltParse = (tr: Element) => ({
-            name: tr.querySelector("td.card_name span").textContent,
-            num: parseInt(tr.querySelector("td.num span").textContent),
-        });
-
-        const monElts = ws.body
-            .querySelector("#monster_list")
-            .querySelectorAll("tr.row");
-        const monObjs = [...monElts].map(eltParse);
-
-        const spellElts = ws.body
-            .querySelector("#spell_list")
-            .querySelectorAll("tr.row");
-        const spellObjs = [...spellElts].map(eltParse);
-
-        const trapElts = ws.body
-            .querySelector("#trap_list")
-            .querySelectorAll("tr.row");
-        const trapObjs = [...trapElts].map(eltParse);
-
-        const extraElts = ws.body
-            .querySelector("#extra_list")
-            .querySelectorAll("tr.row");
-        const extraObjs = [...extraElts].map(eltParse);
-
-        const sideElts = ws.body
-            .querySelector("#side_list")
-            .querySelectorAll("tr.row");
-        const sideObjs = [...sideElts].map(eltParse);
-
-        return {
-            monsters: monObjs,
-            spells: spellObjs,
-            traps: trapObjs,
-            extras: extraObjs,
-            sides: sideObjs,
-        };
-    }
 
     async function getDatabase() {
         const dataPromise = fetch(CardsCDB).then((res) => res.arrayBuffer());
@@ -121,12 +52,15 @@
         ) as YDBDecklistEntries) {
             db.run("DROP TABLE IF EXISTS current_cards;");
             db.run("CREATE TEMP TABLE current_cards (name TEXT, num INTEGER);");
+            
+            db.run("BEGIN TRANSACTION;");
             for (const card of cards) {
                 db.run("INSERT INTO current_cards VALUES (?, ?);", [
                     card.name,
                     card.num,
                 ]);
             }
+            db.run("COMMIT;");
 
             const stmt = db.prepare(`
                 with arn as ( 
@@ -155,64 +89,6 @@
 
         dbResult = JSON.stringify(result, null, 2);
         return result;
-    }
-
-    function wordCount(s: string): number {
-        const normS = s
-            .replaceAll("[ Pendulum Effect ]\r\n", "")
-            .replaceAll("----------------------------------------\r\n", "")
-            .replaceAll("[ Monster Effect ]\r\n", "")
-            .trim();
-        const words = normS.split(/\s+/m);
-        // console.log({ s, normS, words });
-        return words.length;
-    }
-
-    function getWordCounts(dl: YGODecklist) {
-        const allCards = Object.values(dl).flatMap((cardType) => cardType);
-        // console.log({
-        //     dl,
-        //     allCards,
-        //     numAllCards: allCards.reduce((sum, cur) => sum + cur.num, 0),
-        // });
-
-        return allCards
-            .map((c) => ({
-                name: c.name,
-                desc: c.desc,
-                wordCount: wordCount(c.desc),
-            }))
-            .sort((c1, c2) => c2.wordCount - c1.wordCount);
-    }
-
-    function getCentralTendencies(arr: number[]) {
-        arr.sort((a, b) => a - b);
-
-        const sum = arr.reduce((sum, cur) => sum + cur, 0);
-
-        const histogram = arr.reduce((prev, cur) => {
-            if (!prev[cur]) prev[cur] = 1;
-            else prev[cur]++;
-            return prev;
-        }, {} as Record<number, number>);
-        const histogramArr = Object.entries(histogram).map(([val, cnt]) => ({
-            val,
-            cnt,
-        }));
-
-        const mean = sum / arr.length;
-        const median = arr[Math.floor(arr.length / 2)]; // needs to be an arr element
-        const mode = parseFloat(
-            histogramArr.sort((v1, v2) => v2.cnt - v1.cnt)[0].val
-        );
-
-        // console.log({ arr, sum, histogram, mean, median, mode });
-
-        return {
-            mean,
-            median,
-            mode,
-        };
     }
 
     getSetDB().then((ndb) => (db = ndb));
@@ -290,9 +166,8 @@
     </section>
 
     {#if wordCounts}
-        {@const mct = getCentralTendencies(
-            wordCounts.map((wc) => wc.wordCount)
-        )}
+        {@const mct = getMCT(wordCounts)}
+        <!-- {@debug decklist, wordCounts, mct} -->
 
         <section class="container mx-auto px-4">
             <h2 class="my-5 text-3xl font-bold" id="content">Word Count</h2>
@@ -350,7 +225,7 @@
                         </div>
                         <div class="stat-title">Mean</div>
                         <div class="stat-value">
-                            {mct.mean.toFixed(0)} words
+                            {mct.mean} words
                         </div>
                         <div class="stat-desc">Average wc.</div>
                     </div>
@@ -361,7 +236,7 @@
                         </div>
                         <div class="stat-title">Median</div>
                         <div class="stat-value">
-                            {mct.median.toFixed(0)} words
+                            {mct.median} words
                         </div>
                         <div class="stat-desc">Halfway wc.</div>
                     </div>
@@ -372,7 +247,7 @@
                         </div>
                         <div class="stat-title">Mode</div>
                         <div class="stat-value">
-                            {mct.mode.toFixed(0)} words
+                            {mct.mode} words
                         </div>
                         <div class="stat-desc">Most Frequent wc.</div>
                     </div>
