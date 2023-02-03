@@ -15,17 +15,17 @@ describe('word count functional tests', () => {
     });
 
     it.each(testingDescs.wordy)
-        ('wordy samples: wordCount($desc) -> $wordCount', ({ desc, wordCount: expectedWC }) => {
+        ('wordy samples: for $name => wordCount($desc) -> $wordCount', ({ desc, wordCount: expectedWC }) => {
             expect(wordCount(desc)).toBe(expectedWC);
         });
 
     it.each(testingDescs.special)
-        ('special character samples: wordCount($desc) -> $wordCount', ({ desc, wordCount: expectedWC }) => {
+        ('special samples: for $name => wordCount($desc) -> $wordCount', ({ desc, wordCount: expectedWC }) => {
             expect(wordCount(desc)).toBe(expectedWC);
         });
 
     it.each(testingDescs.pendulum)
-        ('pendulum samples: wordCount($desc) -> $wordCount', ({ desc, wordCount: expectedWC }) => {
+        ('pendulum samples: for $name => wordCount($desc) -> $wordCount', ({ desc, wordCount: expectedWC }) => {
             expect(wordCount(desc)).toBe(expectedWC);
         });
 });

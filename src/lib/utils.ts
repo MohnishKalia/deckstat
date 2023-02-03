@@ -3,11 +3,12 @@ import type { YGODecklist, YGOWordcount } from "../interfaces/ygo";
 
 export function wordCount(s: string): number {
     const normS = s
-        .replaceAll("[ Pendulum Effect ]\r\n", "")
-        .replaceAll("----------------------------------------\r\n", "")
-        .replaceAll("[ Monster Effect ]\r\n", "")
+        .replaceAll("[ Pendulum Effect ]", "")
+        .replaceAll("----------------------------------------", "")
+        .replaceAll("[ Monster Effect ]", "")
         .trim();
-    const words = normS.split(/\s+/m).filter(s => s.trim());
+    // TODO: changed to split on / for Monster/Spell/Trap, but raises issue for D/D/D
+    const words = normS.split(/[\s+|/]/m).filter(s => s.trim());
     // console.log({ s, normS, words });
     return words.length;
 }

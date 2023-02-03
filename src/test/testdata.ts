@@ -11,6 +11,8 @@ type TestingDeckData = {
 
 type SampleDecks = 'dddData' | 'srData' | 'pkfireData'
 
+// uncomment debug under const mct of word count display section and copy object in devtools to replace data
+
 // https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11
 const dddData: TestingDeckData = {
     "decklist": {
@@ -291,76 +293,88 @@ const dddData: TestingDeckData = {
     },
     "wordCounts": [
         {
-            "id": 40227329,
-            "name": "Go! - D/D/D Divine Zero King Rage",
-            "desc": "[ Pendulum Effect ]\r\nIf you would take effect damage, you take no damage. If you Normal Summon 1 Level 5 or higher \"D/D\" monster, you can do it without Tributing. You can only use each Pendulum Effect of \"Go! - D/D/D Divine Zero King Rage\" once per turn.\r\n----------------------------------------\r\n[ Monster Effect ]\r\nWhen this card declares an attack, if your opponent's LP is 4000 or less: You can make this card gain ATK equal to your opponent's LP, until the end of this turn. Cannot be destroyed by battle, also you take no damage from battles involving this card.\r\nYou can Tribute 1 other monster; apply 1 of these effects until the end of this turn.\r\n● This card can attack directly.\r\n● Your opponent cannot activate the effects of cards that are in a Spell & Trap Zone.\r\n● Your opponent cannot activate the effects of cards that are in their hand or GY.\r\n\r\n* The above text is unofficial and describes the card's functionality in the OCG.",
-            "wordCount": 162
-        },
-        {
             "id": 46593546,
             "name": "D/D/D Deviser King Deus Machinex",
             "desc": "[ Pendulum Effect ]\r\nWhile you have a card in your other Pendulum Zone: You can target 1 Pendulum Monster you control or in your GY; Special Summon the card in your other Pendulum Zone, and if you do, place that targeted Pendulum Monster in your Pendulum Zone. You can only use this effect of \"D/D/D Deviser King Deus Machinex\" once per turn.\r\n----------------------------------------\r\n[ Monster Effect ]\r\n2 Level 10 Fiend monsters\r\nYou can also Xyz Summon this card by using a \"D/D/D\" monster you control as material. (Transfer its materials to this card.) You can only control 1 \"D/D/D Deviser King Deus Machinex\" in your Monster Zone. Once per Chain, when a Monster Card your opponent controls activates its effect (Quick Effect): You can either detach 2 materials from this card, or destroy 1 \"Dark Contract\" card you control, and if you do, attach that opponent's card to this card as material. Once per turn, during your Standby Phase: You can place this card in your Pendulum Zone.",
-            "wordCount": 161
+            "wordCount": 167
+        },
+        {
+            "id": 40227329,
+            "name": "Go! - D/D/D Divine Zero King Rage",
+            "desc": "[ Pendulum Effect ]\r\nIf you would take effect damage, you take no damage. If you Normal Summon 1 Level 5 or higher \"D/D\" monster, you can do it without Tributing. You can only use each Pendulum Effect of \"Go! - D/D/D Divine Zero King Rage\" once per turn.\r\n----------------------------------------\r\n[ Monster Effect ]\r\nWhen this card declares an attack, if your opponent's LP is 4000 or less: You can make this card gain ATK equal to your opponent's LP, until the end of this turn. Cannot be destroyed by battle, also you take no damage from battles involving this card.\r\nYou can Tribute 1 other monster; apply 1 of these effects until the end of this turn.\r\n● This card can attack directly.\r\n● Your opponent cannot activate the effects of cards that are in a Spell & Trap Zone.\r\n● Your opponent cannot activate the effects of cards that are in their hand or GY.\r\n\r\n* The above text is unofficial and describes the card's functionality in the OCG.",
+            "wordCount": 165
         },
         {
             "id": 28406301,
             "name": "D/D Gryphon",
             "desc": "[ Pendulum Effect ]\r\nYou can target 1 Fiend monster you control; it gains 500 ATK (until the end of this turn) for each \"Dark Contract\" Spell/Trap with different names currently on your field or in your GY, then destroy this card. You can only use this effect of \"D/D Gryphon\" once per turn.\r\n----------------------------------------\r\n[ Monster Effect ]\r\nIf you control a \"D/D\" monster: You can Special Summon this card from your hand in Defense Position. If this card is Pendulum Summoned: You can discard 1 \"D/D\" or \"Dark Contract\" card; draw 1 card. If this card is Special Summoned from the GY: You can add 1 \"D/D\" card from your Deck to your hand, except \"D/D Gryphon\". You can only use each effect of \"D/D Gryphon\" once per turn.",
-            "wordCount": 122
+            "wordCount": 129
         },
         {
             "id": 74069667,
             "name": "D/D/D Oblivion King Abyss Ragnarok",
             "desc": "[ Pendulum Effect ]\r\nIf you Special Summon a \"D/D\" monster(s), except during the Damage Step: You can target 1 \"D/D\" monster in your Graveyard; any battle damage your opponent takes becomes halved for the rest of this turn, also Special Summon that monster, and if you do, take 1000 damage. You can only use this effect of \"D/D/D Oblivion King Abyss Ragnarok\" once per turn.\r\n----------------------------------------\r\n[ Monster Effect ]\r\nIf this card is Normal or Special Summoned: You can target 1 \"D/D/D\" monster in your Graveyard; Special Summon it. You can only use this effect of \"D/D/D Oblivion King Abyss Ragnarok\" once per turn. Once per turn: You can Tribute 1 other \"D/D\" monster, then target 1 monster your opponent controls; banish it.",
-            "wordCount": 116
+            "wordCount": 125
+        },
+        {
+            "id": 33814281,
+            "name": "Dark Contract with Patent License",
+            "desc": "If your opponent Special Summons a monster(s) with the same card type (Fusion, Synchro, Xyz, or Link) as a \"D/D/D\" monster you control (except during the Damage Step): You can inflict 1000 damage to your opponent, also, while this card is on the field, your opponent cannot Special Summon monsters with the same card type as that Special Summoned monster for the rest of this turn. If this card is sent to the GY: You can add 1 \"D/D\" monster from your GY, or 1 face-up \"D/D\" Pendulum Monster from your Extra Deck, to your hand. You can only use this effect of \"Dark Contract with Patent License\" once per turn.",
+            "wordCount": 115
         },
         {
             "id": 71612253,
             "name": "D/D/D Marksman King Tell",
             "desc": "2 Level 5 monsters\nYou can also Xyz Summon this card by using a Rank 4 \"D/D/D\" Xyz Monster you control as the Xyz Material. (Xyz Materials attached to that monster also become Xyz Materials on this card.) Once per turn, during either player's turn, if you took any effect damage this turn: You can detach 1 Xyz Material from this card, then target 1 face-up monster on the field; it loses 1000 ATK and DEF, and if it does, inflict 1000 damage to your opponent. If this card is sent from the field to the Graveyard: You can send 1 \"D/D\" or \"Dark Contract\" card from your Deck to the Graveyard.",
-            "wordCount": 112
+            "wordCount": 115
         },
         {
             "id": 33814281,
             "name": "Dark Contract with Patent License",
             "desc": "If your opponent Special Summons a monster(s) with the same card type (Fusion, Synchro, Xyz, or Link) as a \"D/D/D\" monster you control (except during the Damage Step): You can inflict 1000 damage to your opponent, also, while this card is on the field, your opponent cannot Special Summon monsters with the same card type as that Special Summoned monster for the rest of this turn. If this card is sent to the GY: You can add 1 \"D/D\" monster from your GY, or 1 face-up \"D/D\" Pendulum Monster from your Extra Deck, to your hand. You can only use this effect of \"Dark Contract with Patent License\" once per turn.",
-            "wordCount": 111
-        },
-        {
-            "id": 33814281,
-            "name": "Dark Contract with Patent License",
-            "desc": "If your opponent Special Summons a monster(s) with the same card type (Fusion, Synchro, Xyz, or Link) as a \"D/D/D\" monster you control (except during the Damage Step): You can inflict 1000 damage to your opponent, also, while this card is on the field, your opponent cannot Special Summon monsters with the same card type as that Special Summoned monster for the rest of this turn. If this card is sent to the GY: You can add 1 \"D/D\" monster from your GY, or 1 face-up \"D/D\" Pendulum Monster from your Extra Deck, to your hand. You can only use this effect of \"Dark Contract with Patent License\" once per turn.",
-            "wordCount": 111
-        },
-        {
-            "id": 11609969,
-            "name": "D/D Savant Kepler",
-            "desc": "[ Pendulum Effect ]\nYou cannot Pendulum Summon monsters, except \"D/D\" monsters. This effect cannot be negated. Once per turn, during your Standby Phase: Reduce this card's Pendulum Scale by 2 (min. 1), then destroy all monsters you control with a Level greater than or equal to this card's Pendulum Scale, except \"D/D\" monsters.\n----------------------------------------\n[ Monster Effect ]\nIf this card is Normal or Special Summoned: You can activate 1 of these effects. You can only use this effect of \"D/D Savant Kepler\" once per turn.\n●Target 1 other \"D/D\" card you control; return it to the hand.\n●Add 1 \"Dark Contract\" card from your Deck to your hand.",
-            "wordCount": 110
+            "wordCount": 115
         },
         {
             "id": 9024198,
             "name": "D/D/D Abyss King Gilgamesh",
             "desc": "2 \"D/D\" monsters\nIf this card is Special Summoned: You can activate this effect; you cannot Special Summon monsters for the rest of this turn, except \"D/D\" monsters, also place 2 \"D/D\" Pendulum Monsters with different names from your Deck in your Pendulum Zones, and if you do, take 1000 damage. If this Link Summoned card is destroyed by battle with an opponent's attacking monster, or by an opponent's card effect while in its owner's Monster Zone: You can Special Summon 1 \"D/D\" monster from your Extra Deck or GY in Defense Position. You can only use each effect of \"D/D/D Abyss King Gilgamesh\" once per turn.",
-            "wordCount": 107
+            "wordCount": 113
         },
         {
-            "id": 15939229,
-            "name": "D/D/D Duo-Dawn King Kali Yuga",
-            "desc": "2 Level 8 \"D/D\" monsters\r\nAfter this card is Xyz Summoned, for the rest of this turn, all other cards' effects on the field are negated, and neither player can activate the effects of other cards that are on the field, or activate Set Spells/Traps. Once per turn (Quick Effect): You can detach 1 material from this card; destroy all Spells and Traps on the field. You can detach 1 material from this card, then target 1 \"Dark Contract\" Spell/Trap in your GY; Set that target.\r\n\r\n* The above text is unofficial and describes the card's functionality in the OCG.",
-            "wordCount": 100
+            "id": 11609969,
+            "name": "D/D Savant Kepler",
+            "desc": "[ Pendulum Effect ]\nYou cannot Pendulum Summon monsters, except \"D/D\" monsters. This effect cannot be negated. Once per turn, during your Standby Phase: Reduce this card's Pendulum Scale by 2 (min. 1), then destroy all monsters you control with a Level greater than or equal to this card's Pendulum Scale, except \"D/D\" monsters.\n----------------------------------------\n[ Monster Effect ]\nIf this card is Normal or Special Summoned: You can activate 1 of these effects. You can only use this effect of \"D/D Savant Kepler\" once per turn.\n●Target 1 other \"D/D\" card you control; return it to the hand.\n●Add 1 \"Dark Contract\" card from your Deck to your hand.",
+            "wordCount": 105
         },
         {
             "id": 41546,
             "name": "D/D Savant Thomas",
             "desc": "[ Pendulum Effect ]\r\nDuring your Main Phase: You can add 1 face-up \"D/D\" Pendulum Monster from your Extra Deck to your hand. You can only use this effect of \"D/D Savant Thomas\" once per turn.\r\n----------------------------------------\r\n[ Monster Effect ]\r\nYou can target 1 \"D/D\" card in your Pendulum Zone; destroy that card, and if you do, Special Summon 1 Level 8 \"D/D/D\" monster from your Deck in Defense Position, but for the rest of this turn, its effects (if any) are negated, also any battle damage your opponent takes becomes halved. You can only use this effect of \"D/D Savant Thomas\" once per turn.",
-            "wordCount": 97
+            "wordCount": 103
+        },
+        {
+            "id": 15939229,
+            "name": "D/D/D Duo-Dawn King Kali Yuga",
+            "desc": "2 Level 8 \"D/D\" monsters\r\nAfter this card is Xyz Summoned, for the rest of this turn, all other cards' effects on the field are negated, and neither player can activate the effects of other cards that are on the field, or activate Set Spells/Traps. Once per turn (Quick Effect): You can detach 1 material from this card; destroy all Spells and Traps on the field. You can detach 1 material from this card, then target 1 \"Dark Contract\" Spell/Trap in your GY; Set that target.\r\n\r\n* The above text is unofficial and describes the card's functionality in the OCG.",
+            "wordCount": 103
         },
         {
             "id": 3758046,
             "name": "D/D/D Wave King Caesar",
             "desc": "2 Level 4 Fiend-Type monsters\nDuring either player's turn: You can detach 1 Xyz Material from this card; at the end of the Battle Phase, Special Summon from your Graveyard as many monsters destroyed this turn as possible, but during the next Standby Phase, take 1000 damage for each monster Special Summoned by this effect. If this card is sent from the field to the Graveyard: You can add 1 \"Dark Contract\" card from your Deck to your hand. You can only use each effect of \"D/D/D Wave King Caesar\" once per turn.",
-            "wordCount": 93
+            "wordCount": 95
+        },
+        {
+            "id": 74583607,
+            "name": "D/D/D Flame King Genghis",
+            "desc": "2 \"D/D\" monsters\nIf another \"D/D\" monster(s) is Special Summoned to your field, while you control this face-up card (except during the Damage Step): You can target 1 \"D/D\" monster in your Graveyard; Special Summon it. You can only use this effect of \"D/D/D Flame King Genghis\" once per turn. If this card is destroyed by battle, or if this card in its owner's possession is destroyed by an opponent's card effect: You can target 1 \"Dark Contract\" card in your Graveyard; add it to your hand.",
+            "wordCount": 92
+        },
+        {
+            "id": 79559912,
+            "name": "D/D/D Wave High King Caesar",
+            "desc": "2 Level 6 Fiend monsters\nWhen a Spell/Trap Card, or monster effect, is activated that includes an effect that Special Summons a monster (Quick Effect): You can detach 1 material from this card; negate the activation, and if you do, destroy that card, then you can make 1 other \"D/D\" monster you control and this card gain 1800 ATK until the end of this turn. If this card is sent from the field to the GY: You can add 1 \"Dark Contract\" card from your Deck to your hand.",
+            "wordCount": 91
         },
         {
             "id": 8264361,
@@ -369,64 +383,52 @@ const dddData: TestingDeckData = {
             "wordCount": 90
         },
         {
-            "id": 79559912,
-            "name": "D/D/D Wave High King Caesar",
-            "desc": "2 Level 6 Fiend monsters\nWhen a Spell/Trap Card, or monster effect, is activated that includes an effect that Special Summons a monster (Quick Effect): You can detach 1 material from this card; negate the activation, and if you do, destroy that card, then you can make 1 other \"D/D\" monster you control and this card gain 1800 ATK until the end of this turn. If this card is sent from the field to the GY: You can add 1 \"Dark Contract\" card from your Deck to your hand.",
-            "wordCount": 89
-        },
-        {
-            "id": 74583607,
-            "name": "D/D/D Flame King Genghis",
-            "desc": "2 \"D/D\" monsters\nIf another \"D/D\" monster(s) is Special Summoned to your field, while you control this face-up card (except during the Damage Step): You can target 1 \"D/D\" monster in your Graveyard; Special Summon it. You can only use this effect of \"D/D/D Flame King Genghis\" once per turn. If this card is destroyed by battle, or if this card in its owner's possession is destroyed by an opponent's card effect: You can target 1 \"Dark Contract\" card in your Graveyard; add it to your hand.",
-            "wordCount": 87
-        },
-        {
             "id": 59123937,
             "name": "D/D Vice Typhon",
             "desc": "When this card is Normal Summoned: You can Tribute 1 \"D/D\" monster; Special Summon 1 Level 7 \"D/D/D\" monster from your Deck. During your Main Phase, if this card is in the GY because it was sent there this turn: You can Fusion Summon 1 Level 8 or higher \"D/D/D\" Fusion Monster from your Extra Deck, by banishing Fusion Materials listed on it from your GY, including this card. You can only use each effect of \"D/D Vice Typhon\" once per turn.",
-            "wordCount": 82
+            "wordCount": 88
         },
         {
             "id": 16006416,
             "name": "D/D/D Flame High King Genghis",
             "desc": "1 Level 5 or higher \"D/D\" monster + 1 \"D/D\" monster\nIf another \"D/D\" monster(s) is Normal or Special Summoned to your field while you control this monster (except during the Damage Step): You can target 1 \"D/D\" monster in your GY; Special Summon it. You can only use this effect of \"D/D/D Flame High King Genghis\" once per turn. Once per your turn, when a Spell/Trap Card, or its effect, is activated (Quick Effect): You can negate the activation.",
-            "wordCount": 80
+            "wordCount": 86
         },
         {
             "id": 46796664,
             "name": "D/D Savant Copernicus",
             "desc": "[ Pendulum Effect ]\r\nYou cannot Pendulum Summon monsters, except \"D/D\" monsters. This effect cannot be negated. Once, while this card is in your Pendulum Zone, you can negate an activated Spell effect that would inflict damage to you, then destroy this card.\r\n----------------------------------------\r\n[ Monster Effect ]\r\nIf this card is Normal or Special Summoned: You can send 1 \"D/D\" or \"Dark Contract\" card from your Deck to the GY, except \"D/D Savant Copernicus\". You can only use this effect of \"D/D Savant Copernicus\" once per turn.",
-            "wordCount": 79
-        },
-        {
-            "id": 39153655,
-            "name": "D/D Cerberus",
-            "desc": "[ Pendulum Effect ]\nOnce per turn: You can target 1 \"D/D\" monster you control; change its Level to 4, and if you do, it gains 400 ATK and DEF (even if this card leaves the field).\n----------------------------------------\n[ Monster Effect ]\nWhen this card is Pendulum Summoned from the hand, while you control a \"D/D\" monster other than \"D/D Cerberus\": You can target 1 Continuous Spell Card in your Graveyard; add it to your hand.",
-            "wordCount": 76
+            "wordCount": 83
         },
         {
             "id": 32349062,
             "name": "D/D Dog",
             "desc": "[ Pendulum Effect ]\r\nYou can target 1 Fusion, Synchro, or Xyz Monster your opponent controls; negate its effects until the end of this turn, then destroy this card. You can only use this effect of \"D/D Dog\" once per turn.\r\n----------------------------------------\r\n[ Monster Effect ]\r\nOnce per turn, if your opponent Special Summons a Fusion, Synchro, or Xyz Monster(s) (except during the Damage Step): You can target 1 of those monsters; this turn, that face-up monster cannot attack, also its effects are negated.",
-            "wordCount": 75
+            "wordCount": 76
         },
         {
             "id": 44852429,
             "name": "D/D/D Cursed King Siegfried",
             "desc": "1 Tuner + 1 or more non-Tuner \"D/D\" monsters\nDuring either player's turn: You can target 1 face-up Spell/Trap Card on the field; that target has its effects negated, until the next Standby Phase. You can only use this effect of \"D/D/D Cursed King Siegfried\" once per turn. If this card is destroyed by battle or card effect and sent to the Graveyard: Gain 1000 LP for each \"Dark Contract\" card you control.",
-            "wordCount": 73
+            "wordCount": 76
         },
         {
-            "id": 72181263,
-            "name": "D/D Orthros",
-            "desc": "[ Pendulum Effect ]\nOnce per turn: You can target 1 Spell/Trap Card on the field and 1 other \"D/D\" or \"Dark Contract\" card you control; destroy them.\n----------------------------------------\n[ Monster Effect ]\nWhen you take battle or effect damage: You can Special Summon this card from your hand. If this card is Special Summoned to your field, you cannot Special Summon monsters for the rest of this turn, except Fiend-Type monsters.",
-            "wordCount": 72
+            "id": 39153655,
+            "name": "D/D Cerberus",
+            "desc": "[ Pendulum Effect ]\nOnce per turn: You can target 1 \"D/D\" monster you control; change its Level to 4, and if you do, it gains 400 ATK and DEF (even if this card leaves the field).\n----------------------------------------\n[ Monster Effect ]\nWhen this card is Pendulum Summoned from the hand, while you control a \"D/D\" monster other than \"D/D Cerberus\": You can target 1 Continuous Spell Card in your Graveyard; add it to your hand.",
+            "wordCount": 70
         },
         {
             "id": 73360025,
             "name": "Dark Contract with the Swamp King",
             "desc": "During your Main Phase: You can Fusion Summon 1 Fiend Fusion Monster from your Extra Deck, using monsters from your hand or field as material. You can only use this effect of \"Dark Contract with the Swamp King\" once per turn. If Summoning a \"D/D\" Fusion Monster this way, you can also banish monsters from your GY as material. Once per turn, during your Standby Phase: Take 1000 damage.",
-            "wordCount": 69
+            "wordCount": 70
+        },
+        {
+            "id": 91781484,
+            "name": "D/D/D Headhunt",
+            "desc": "If you control a \"D/D/D\" monster: Target 1 face-up monster your opponent controls; take control of it until the End Phase of the next turn, but its effects are negated, it cannot declare an attack, also if it is a monster Special Summoned from the Extra Deck, it is also treated as a \"D/D/D\" monster. You can only activate 1 \"D/D/D Headhunt\" per turn.",
+            "wordCount": 70
         },
         {
             "id": 33907039,
@@ -441,58 +443,58 @@ const dddData: TestingDeckData = {
             "wordCount": 69
         },
         {
-            "id": 91781484,
-            "name": "D/D/D Headhunt",
-            "desc": "If you control a \"D/D/D\" monster: Target 1 face-up monster your opponent controls; take control of it until the End Phase of the next turn, but its effects are negated, it cannot declare an attack, also if it is a monster Special Summoned from the Extra Deck, it is also treated as a \"D/D/D\" monster. You can only activate 1 \"D/D/D Headhunt\" per turn.",
-            "wordCount": 64
-        },
-        {
             "id": 33334269,
             "name": "D/D Ghost",
             "desc": "If this card is sent to the Graveyard: You can target 1 \"D/D\" monster or \"Dark Contract\" card in your Graveyard, except \"D/D Ghost\"; send 1 card from your Deck to the Graveyard with that name. If this card is banished: You can target 1 of your banished \"D/D\" monsters or \"Dark Contract\" cards, except \"D/D Ghost\"; return it to the Graveyard.",
-            "wordCount": 62
+            "wordCount": 66
+        },
+        {
+            "id": 72181263,
+            "name": "D/D Orthros",
+            "desc": "[ Pendulum Effect ]\nOnce per turn: You can target 1 Spell/Trap Card on the field and 1 other \"D/D\" or \"Dark Contract\" card you control; destroy them.\n----------------------------------------\n[ Monster Effect ]\nWhen you take battle or effect damage: You can Special Summon this card from your hand. If this card is Special Summoned to your field, you cannot Special Summon monsters for the rest of this turn, except Fiend-Type monsters.",
+            "wordCount": 65
         },
         {
             "id": 45206713,
             "name": "D/D Swirl Slime",
             "desc": "If this card is in your hand: You can Fusion Summon 1 \"D/D/D\" Fusion Monster from your Extra Deck, using monsters from your hand as Fusion Materials, including this card. You can banish this card from your GY; Special Summon 1 \"D/D\" monster from your hand. You can only use each effect of \"D/D Swirl Slime\" once per turn.",
-            "wordCount": 59
+            "wordCount": 63
         },
         {
             "id": 59438930,
             "name": "Ghost Ogre & Snow Rabbit",
             "desc": "When a monster on the field activates its effect, or when a Spell/Trap that is already face-up on the field activates its effect (Quick Effect): You can send this card from your hand or field to the GY; destroy that card on the field. You can only use this effect of \"Ghost Ogre & Snow Rabbit\" once per turn.",
-            "wordCount": 59
+            "wordCount": 60
         },
         {
             "id": 10045474,
             "name": "Infinite Impermanence",
             "desc": "Target 1 face-up monster your opponent controls; negate its effects (until the end of this turn), then, if this card was Set before activation and is on the field at resolution, for the rest of this turn all other Spell/Trap effects in this column are negated. If you control no cards, you can activate this card from your hand.",
-            "wordCount": 59
+            "wordCount": 60
         },
         {
             "id": 19580308,
             "name": "D/D Lamia",
             "desc": "If this card is in your hand or GY: You can send 1 \"D/D\" or \"Dark Contract\" card from your hand or face-up field to the GY, except \"D/D Lamia\"; Special Summon this card, but banish it when it leaves the field. You can only use this effect of \"D/D Lamia\" once per turn.",
-            "wordCount": 54
+            "wordCount": 57
         },
         {
             "id": 9030160,
             "name": "Dark Contract with the Eternal Darkness",
             "desc": "While you have 2 \"D/D\" cards in your Pendulum Zones, your opponent cannot target monsters on the field with Spell/Trap effects, Tribute them for a Tribute Summon, nor use them as Materials for a Fusion, Synchro, or Xyz Summon. Once per turn, during your Standby Phase: Take 1000 damage.",
-            "wordCount": 49
-        },
-        {
-            "id": 37209439,
-            "name": "Dark Contract with Errors",
-            "desc": "Once per turn, if you control a \"D/D\" monster: You can negate all Trap Card effects on the field (other than this card's) for the rest of this turn (even if this card leaves the field). Once per turn, during your Standby Phase: Take 1000 damage.",
-            "wordCount": 46
+            "wordCount": 51
         },
         {
             "id": 72291412,
             "name": "D/D Necro Slime",
             "desc": "If this card is in your GY: You can Fusion Summon 1 \"D/D/D\" Fusion Monster from your Extra Deck, by banishing Fusion Materials mentioned on it from your GY, including this card. You can only use this effect of \"D/D Necro Slime\" once per turn.",
-            "wordCount": 45
+            "wordCount": 48
+        },
+        {
+            "id": 37209439,
+            "name": "Dark Contract with Errors",
+            "desc": "Once per turn, if you control a \"D/D\" monster: You can negate all Trap Card effects on the field (other than this card's) for the rest of this turn (even if this card leaves the field). Once per turn, during your Standby Phase: Take 1000 damage.",
+            "wordCount": 47
         },
         {
             "id": 97268402,
@@ -510,7 +512,7 @@ const dddData: TestingDeckData = {
             "id": 46372010,
             "name": "Dark Contract with the Gate",
             "desc": "During your Main Phase: You can add 1 \"D/D\" monster from your Deck to your hand. You can only use this effect of \"Dark Contract with the Gate\" once per turn. Once per turn, during your Standby Phase: Take 1000 damage.",
-            "wordCount": 41
+            "wordCount": 42
         },
         {
             "id": 1475311,
@@ -534,13 +536,13 @@ const dddData: TestingDeckData = {
             "id": 82956492,
             "name": "D/D/D Oracle King d'Arc",
             "desc": "2 \"D/D\" monsters\nAny effect that would inflict damage to you makes you gain that much LP, instead.",
-            "wordCount": 18
+            "wordCount": 19
         },
         {
             "id": 43898403,
             "name": "Twin Twisters",
             "desc": "Discard 1 card, then target up to 2 Spells/Traps on the field; destroy them.",
-            "wordCount": 14
+            "wordCount": 15
         },
         {
             "id": 81439173,
@@ -556,11 +558,11 @@ const dddData: TestingDeckData = {
         }
     ],
     "mct": {
-        "mean": 72,
-        "median": 72,
-        "mode": 59
+        "mean": 74,
+        "median": 70,
+        "mode": 42
     }
-};
+}
 
 // https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=12
 const srData: TestingDeckData = {
@@ -814,7 +816,7 @@ const srData: TestingDeckData = {
             "id": 90036274,
             "name": "Clear Wing Fast Dragon",
             "desc": "[ Pendulum Effect ]\nYou can send 1 face-up \"Speedroid\" Tuner and 1 face-up non-Tuner monster you control to the GY, whose total Levels equal 7; Special Summon this card from your Pendulum Zone. You can only use this effect of \"Clear Wing Fast Dragon\" once per turn.\n----------------------------------------\n[ Monster Effect ]\n1 Tuner + 1+ non-Tuner WIND monsters\n(Quick Effect): You can target 1 face-up monster your opponent controls that was Special Summoned from the Extra Deck; until the end of this turn, change its ATK to 0, also negate that face-up monster's effects. You can only use this effect of \"Clear Wing Fast Dragon\" once per turn. If this card in the Monster Zone is destroyed by battle or card effect: You can place this card in your Pendulum Zone.",
-            "wordCount": 133
+            "wordCount": 123
         },
         {
             "id": 59765225,
@@ -826,13 +828,13 @@ const srData: TestingDeckData = {
             "id": 26420373,
             "name": "Speedroid Passinglider",
             "desc": "[ Pendulum Effect ]\nOnce per turn: You can send 1 \"Speedroid\" Tuner from your hand or face-up from your field to the GY; increase or reduce (min. 1) this card's Pendulum Scale by the original Level of the sent monster until the end of this turn.\n----------------------------------------\n[ Monster Effect ]\nIf there are no monsters on the field, you can Special Summon this card (from your hand). You can only Special Summon \"Speedroid Passinglider\" once per turn this way. When this card is Tribute Summoned: You can target 1 Level 4 or lower \"Speedroid\" monster in your GY; Special Summon it. Your opponent's monsters cannot target \"Speedroid\" monsters for attacks, except this one.",
-            "wordCount": 115
+            "wordCount": 106
         },
         {
             "id": 86154370,
             "name": "Hi-Speedroid Clear Wing Rider",
             "desc": "1 WIND Tuner + 1 non-Tuner WIND Synchro Monster\r\nOnce per turn, during your Main Phase: You can roll a six-sided die and shuffle WIND monsters from your GY into your Deck, up to the result, then, you can destroy cards your opponent controls up to the number shuffled, and if you do, this card gains 500 ATK for each card destroyed by this effect, until the end of this turn. During your opponent's Main Phase (Quick Effect): You can Tribute this Synchro Summoned card; Special Summon up to 2 Level 7 WIND Synchro Monsters with different names from each other from your Extra Deck.",
-            "wordCount": 105
+            "wordCount": 104
         },
         {
             "id": 70939418,
@@ -844,12 +846,6 @@ const srData: TestingDeckData = {
             "id": 82044279,
             "name": "Clear Wing Synchro Dragon",
             "desc": "1 Tuner + 1+ non-Tuner monsters\nOnce per turn, when another Level 5 or higher monster activates its effect on the field (Quick Effect): You can negate the activation, and if you do, destroy it. Once per turn, when a monster effect is activated that targets 1 Level 5 or higher monster on the field (and no other cards) (Quick Effect): You can negate the activation, and if you do, destroy it. If this card's effect destroys a monster, this card gains ATK equal to the destroyed monster's original ATK until the end of this turn.",
-            "wordCount": 96
-        },
-        {
-            "id": 96708940,
-            "name": "Speedroid Marble Machine",
-            "desc": "[ Pendulum Effect ]\nOnce per turn, when your Defense Position monster is targeted for an attack: You can change it to face-up Attack Position, also it cannot be destroyed by battle this turn (even if this card leaves the field).\n----------------------------------------\n[ Monster Effect ]\nWhen this card is Normal Summoned: You can activate this effect; add 1 \"Speedroid\" monster from your Deck to your hand, also you cannot Special Summon monsters for the rest of this turn, except WIND monsters. You can only use this effect of \"Speedroid Marble Machine\" once per turn.",
             "wordCount": 95
         },
         {
@@ -871,10 +867,28 @@ const srData: TestingDeckData = {
             "wordCount": 91
         },
         {
+            "id": 58543073,
+            "name": "Speedroid Dupligate",
+            "desc": "Banish 1 WIND monster from your GY, then target 1 card your opponent controls; return it to the hand. During your Main Phase, if this card is in your GY: You can target 1 Level 2 or higher \"Speedroid\" monster you control; reduce its Level by 1, and if you do, Special Summon this card as a Normal Monster (Machine/Tuner/WIND/Level 1/ATK 0/DEF 0). (This card is NOT treated as a Trap.) You can only use this effect of \"Speedroid Dupligate\" once per Duel.",
+            "wordCount": 88
+        },
+        {
+            "id": 96708940,
+            "name": "Speedroid Marble Machine",
+            "desc": "[ Pendulum Effect ]\nOnce per turn, when your Defense Position monster is targeted for an attack: You can change it to face-up Attack Position, also it cannot be destroyed by battle this turn (even if this card leaves the field).\n----------------------------------------\n[ Monster Effect ]\nWhen this card is Normal Summoned: You can activate this effect; add 1 \"Speedroid\" monster from your Deck to your hand, also you cannot Special Summon monsters for the rest of this turn, except WIND monsters. You can only use this effect of \"Speedroid Marble Machine\" once per turn.",
+            "wordCount": 86
+        },
+        {
             "id": 50954680,
             "name": "Crystal Wing Synchro Dragon",
             "desc": "1 Tuner + 1+ non-Tuner Synchro Monsters\nOnce per turn, when another monster's effect is activated (Quick Effect): You can negate the activation, and if you do, destroy that monster, and if you do that, this card gains ATK equal to the destroyed monster's original ATK until the end of this turn. If this card battles an opponent's Level 5 or higher monster, during damage calculation: This card gains ATK equal to the current ATK of the opponent's monster it is battling during that damage calculation only.",
-            "wordCount": 87
+            "wordCount": 86
+        },
+        {
+            "id": 67922702,
+            "name": "Mecha Phantom Beast Tetherwolf",
+            "desc": "If this card is Normal Summoned: Special Summon 1 \"Mecha Phantom Beast Token\" (Machine/WIND/Level 3/ATK 0/DEF 0). This card's Level is increased by the total Levels of all \"Mecha Phantom Beast Tokens\" you control. While you control a Token, this card cannot be destroyed by battle or card effects. Once per battle, during the Damage Step, when this card battles an opponent's monster (Quick Effect): You can Tribute 1 Token; this card gains 800 ATK, until the end of this turn.",
+            "wordCount": 85
         },
         {
             "id": 23361526,
@@ -886,24 +900,12 @@ const srData: TestingDeckData = {
             "id": 86943389,
             "name": "Hi-Speedroid Puzzle",
             "desc": "1 Tuner + 1 or more non-Tuner monsters\nAt the start of the Damage Step, if this card battles a Special Summoned monster: You can make this card's ATK become double its current ATK until the end of the Damage Step. Once per turn, during the End Phase, if this card is in the Graveyard because this Synchro Summoned card was sent there from the field this turn: You can target 1 \"Speedroid\" monster in your Graveyard, except \"Hi-Speedroid Puzzle\"; add it to your hand.",
-            "wordCount": 85
-        },
-        {
-            "id": 58543073,
-            "name": "Speedroid Dupligate",
-            "desc": "Banish 1 WIND monster from your GY, then target 1 card your opponent controls; return it to the hand. During your Main Phase, if this card is in your GY: You can target 1 Level 2 or higher \"Speedroid\" monster you control; reduce its Level by 1, and if you do, Special Summon this card as a Normal Monster (Machine/Tuner/WIND/Level 1/ATK 0/DEF 0). (This card is NOT treated as a Trap.) You can only use this effect of \"Speedroid Dupligate\" once per Duel.",
-            "wordCount": 83
+            "wordCount": 84
         },
         {
             "id": 21516908,
             "name": "Hi-Speedroid Hagoita",
             "desc": "1 Tuner + 1 or more non-Tuner monsters\nDuring either player's turn: You can Tribute this card; increase the Levels of all monsters currently on the field by 1, until the end of this turn. If this card is in your Graveyard and you control a \"Speedroid\" Tuner monster: You can Special Summon this card, also you cannot Special Summon monsters for the rest of this turn, except WIND monsters. You can only use this effect of \"Hi-Speedroid Hagoita\" once per turn.",
-            "wordCount": 82
-        },
-        {
-            "id": 67922702,
-            "name": "Mecha Phantom Beast Tetherwolf",
-            "desc": "If this card is Normal Summoned: Special Summon 1 \"Mecha Phantom Beast Token\" (Machine/WIND/Level 3/ATK 0/DEF 0). This card's Level is increased by the total Levels of all \"Mecha Phantom Beast Tokens\" you control. While you control a Token, this card cannot be destroyed by battle or card effects. Once per battle, during the Damage Step, when this card battles an opponent's monster (Quick Effect): You can Tribute 1 Token; this card gains 800 ATK, until the end of this turn.",
             "wordCount": 81
         },
         {
@@ -952,7 +954,7 @@ const srData: TestingDeckData = {
             "id": 42110604,
             "name": "Hi-Speedroid Chanbara",
             "desc": "1 Tuner + 1+ non-Tuner monsters\nThis card can make a second attack during each Battle Phase. At the start of the Damage Step, if this card battles: It gains 200 ATK. If this card is sent to the GY: You can target 1 of your banished \"Speedroid\" cards; add it to your hand. You can only Special Summon \"Hi-Speedroid Chanbara(s)\" once per turn.",
-            "wordCount": 64
+            "wordCount": 63
         },
         {
             "id": 85704698,
@@ -964,7 +966,7 @@ const srData: TestingDeckData = {
             "id": 44508094,
             "name": "Stardust Dragon",
             "desc": "1 Tuner + 1+ non-Tuner monsters\nWhen a card or effect is activated that would destroy a card(s) on the field (Quick Effect): You can Tribute this card; negate the activation, and if you do, destroy it. During the End Phase, if this effect was activated this turn (and was not negated): You can Special Summon this card from your GY.",
-            "wordCount": 61
+            "wordCount": 60
         },
         {
             "id": 1980574,
@@ -976,6 +978,12 @@ const srData: TestingDeckData = {
             "id": 12148078,
             "name": "Speedroid Wheel",
             "desc": "Discard 1 card; roll a six-sided die, then Special Summon, from your hand and/or Deck, 1 or 2 \"Speedroid\" monsters whose total Levels equal the result, but negate their effects. If you do not Special Summon, you lose LP equal to the result x 500. You can only activate 1 \"Speedroid Wheel\" per turn.",
+            "wordCount": 55
+        },
+        {
+            "id": 69550259,
+            "name": "Speedroid Block-n-Roll",
+            "desc": "If this card is sent to the GY as Synchro Material: You can Special Summon 1 \"Speedroid Token\" (Machine/WIND/ATK 0/DEF 0) with a Level equal to the original Level of the Synchro Monster that used this card as material. You can only use this effect of \"Speedroid Block-n-Roll\" once per turn.",
             "wordCount": 54
         },
         {
@@ -983,12 +991,6 @@ const srData: TestingDeckData = {
             "name": "Speedroid Taketomborg",
             "desc": "If you control a WIND monster, you can Special Summon this card (from your hand). You can Tribute this card; Special Summon 1 \"Speedroid\" Tuner from your Deck, also you cannot Special Summon monsters for the rest of this turn, except WIND monsters. You can only Special Summon \"Speedroid Taketomborg(s)\" once per turn.",
             "wordCount": 53
-        },
-        {
-            "id": 69550259,
-            "name": "Speedroid Block-n-Roll",
-            "desc": "If this card is sent to the GY as Synchro Material: You can Special Summon 1 \"Speedroid Token\" (Machine/WIND/ATK 0/DEF 0) with a Level equal to the original Level of the Synchro Monster that used this card as material. You can only use this effect of \"Speedroid Block-n-Roll\" once per turn.",
-            "wordCount": 51
         },
         {
             "id": 81275020,
@@ -1012,7 +1014,7 @@ const srData: TestingDeckData = {
             "id": 64880894,
             "name": "Stardust Charge Warrior",
             "desc": "1 Tuner + 1+ non-Tuner monsters\nWhen this card is Synchro Summoned: You can draw 1 card. You can only use this effect of \"Stardust Charge Warrior\" once per turn. This card can attack all Special Summoned monsters your opponent controls, once each.",
-            "wordCount": 43
+            "wordCount": 42
         },
         {
             "id": 16725505,
@@ -1048,9 +1050,9 @@ const srData: TestingDeckData = {
     "mct": {
         "mean": 71,
         "median": 69,
-        "mode": 61
+        "mode": 68
     }
-};
+}
 
 // https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=5
 const pkfireData: TestingDeckData = {
@@ -1356,21 +1358,27 @@ const pkfireData: TestingDeckData = {
     },
     "wordCounts": [
         {
-            "id": 88504133,
-            "name": "Phantom Knights' Rank-Up-Magic Force",
-            "desc": "During the Main Phase: Banish 1 or more DARK monsters from your GY, then target 1 DARK Xyz Monster you control; Special Summon from your Extra Deck, 1 \"The Phantom Knights\", \"Raidraptor\", or \"Xyz Dragon\" Xyz Monster, whose Rank equals that of the targeted monster you control + the number of monsters banished, by using it as material, also for the rest of this turn after this card resolves, you cannot Special Summon monsters from the Extra Deck, except Xyz Monsters. (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) You can only activate 1 \"Phantom Knights' Rank-Up-Magic Force\" per turn.",
-            "wordCount": 106
-        },
-        {
             "id": 73304257,
             "name": "Alpha, the Master of Beasts",
             "desc": "Cannot be Normal Summoned/Set. Must first be Special Summoned (from your hand) while the total ATK of all monsters your opponent controls is more than that of all monsters you control. You can target any number of Beast, Beast-Warrior, and/or Winged Beast monsters you control; return them to the hand, then, return face-up monsters your opponent controls to the hand, equal to the number of cards you returned to the hand, also for the rest of this turn, \"Alpha, the Master of Beasts\" you control cannot attack directly. You can only use this effect of \"Alpha, the Master of Beasts\" once per turn.",
-            "wordCount": 103
+            "wordCount": 105
+        },
+        {
+            "id": 88504133,
+            "name": "Phantom Knights' Rank-Up-Magic Force",
+            "desc": "During the Main Phase: Banish 1 or more DARK monsters from your GY, then target 1 DARK Xyz Monster you control; Special Summon from your Extra Deck, 1 \"The Phantom Knights\", \"Raidraptor\", or \"Xyz Dragon\" Xyz Monster, whose Rank equals that of the targeted monster you control + the number of monsters banished, by using it as material, also for the rest of this turn after this card resolves, you cannot Special Summon monsters from the Extra Deck, except Xyz Monsters. (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) You can only activate 1 \"Phantom Knights' Rank-Up-Magic Force\" per turn.",
+            "wordCount": 105
         },
         {
             "id": 3298689,
             "name": "The Phantom Knights' Rank-Up-Magic Launch",
             "desc": "During the Main Phase: Target 1 DARK Xyz Monster you control with no material; Special Summon from your Extra Deck, 1 DARK Xyz Monster that is 1 Rank higher than that monster you control, by using it as the Xyz Material, and if you do, attach this card to it as additional material. (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) During your Main Phase: You can banish this card from your GY, then target 1 DARK Xyz Monster you control; attach 1 \"The Phantom Knights\" monster from your hand to that monster as material.",
+            "wordCount": 101
+        },
+        {
+            "id": 58699500,
+            "name": "Cherubini, Ebon Angel of the Burning Abyss",
+            "desc": "2 Level 3 monsters\nMonsters this card points to cannot be destroyed by card effects. If this card would be destroyed by battle or an opponent's card effect, you can send 1 other card you control to the GY instead. You can send 1 Level 3 monster from your Deck to the GY, then target 1 \"Burning Abyss\" monster on the field; it gains ATK/DEF equal to the ATK/DEF of the monster sent to the GY, until the end of this turn. You can only use this effect of \"Cherubini, Ebon Angel of the Burning Abyss\" once per turn.",
             "wordCount": 101
         },
         {
@@ -1380,10 +1388,16 @@ const pkfireData: TestingDeckData = {
             "wordCount": 100
         },
         {
-            "id": 58699500,
-            "name": "Cherubini, Ebon Angel of the Burning Abyss",
-            "desc": "2 Level 3 monsters\nMonsters this card points to cannot be destroyed by card effects. If this card would be destroyed by battle or an opponent's card effect, you can send 1 other card you control to the GY instead. You can send 1 Level 3 monster from your Deck to the GY, then target 1 \"Burning Abyss\" monster on the field; it gains ATK/DEF equal to the ATK/DEF of the monster sent to the GY, until the end of this turn. You can only use this effect of \"Cherubini, Ebon Angel of the Burning Abyss\" once per turn.",
-            "wordCount": 99
+            "id": 63504681,
+            "name": "Number 86: Heroic Champion - Rhongomyniad",
+            "desc": "2 or more (max. 5) Level 4 Warrior monsters\r\nOnce per turn, during your opponent's End Phase: Detach 1 material from this card. This card gains effects based on the number of materials attached to it.\r\n● 1+: Cannot be destroyed by battle.\r\n● 2+: Gains 1500 ATK/DEF.\r\n● 3+: Unaffected by other cards' effects.\r\n● 4+: Your opponent cannot Normal or Special Summon monsters.\r\n● 5+: Once per turn: You can destroy all cards your opponent controls.\r\n\r\n* The above text is unofficial and describes the card's functionality in the OCG.",
+            "wordCount": 98
+        },
+        {
+            "id": 26692769,
+            "name": "The Phantom Knights of Rusty Bardiche",
+            "desc": "2+ DARK monsters\nDuring your Main Phase: You can send 1 \"The Phantom Knights\" monster from your Deck to the GY, then Set 1 \"Phantom Knights\" Spell/Trap directly from your Deck to your Spell & Trap Zone. If a DARK Xyz Monster(s) is Special Summoned to a zone(s) this card points to, while this monster is on the field (except during the Damage Step): You can target 1 card on the field; destroy it. You can only use each effect of \"The Phantom Knights of Rusty Bardiche\" once per turn. Cannot be used as Link Material.",
+            "wordCount": 97
         },
         {
             "id": 28781003,
@@ -1392,10 +1406,10 @@ const pkfireData: TestingDeckData = {
             "wordCount": 96
         },
         {
-            "id": 26692769,
-            "name": "The Phantom Knights of Rusty Bardiche",
-            "desc": "2+ DARK monsters\nDuring your Main Phase: You can send 1 \"The Phantom Knights\" monster from your Deck to the GY, then Set 1 \"Phantom Knights\" Spell/Trap directly from your Deck to your Spell & Trap Zone. If a DARK Xyz Monster(s) is Special Summoned to a zone(s) this card points to, while this monster is on the field (except during the Damage Step): You can target 1 card on the field; destroy it. You can only use each effect of \"The Phantom Knights of Rusty Bardiche\" once per turn. Cannot be used as Link Material.",
-            "wordCount": 96
+            "id": 9336190,
+            "name": "The Phantom Knights of Mist Claws",
+            "desc": "Target 1 of your banished \"The Phantom Knights\" monsters; add it to your hand. When an opponent's monster declares a direct attack while this card is in your GY: You can target 1 Level 4 or lower \"The Phantom Knights\" monster in your GY; Special Summon that monster, and if you do, Special Summon this card as a Normal Monster with the same original Level as that monster (Warrior/DARK/ATK 0/DEF 0). (This card is NOT treated as a Trap.) If Summoned this way, banish this card when it leaves the field.",
+            "wordCount": 94
         },
         {
             "id": 1621413,
@@ -1408,18 +1422,6 @@ const pkfireData: TestingDeckData = {
             "name": "Arc Rebellion Xyz Dragon",
             "desc": "3 Level 5 monsters\r\nThis Xyz Summoned card cannot be destroyed by card effects. You can detach 1 material from this card; this card gains ATK equal to the total original ATK of all other monsters on the field, then, if this card has a DARK Xyz Monster as material, negate the effects of all other face-up monsters on the field. After this effect resolves, you cannot declare attacks with other monsters for the rest of this turn. You can only use this effect of \"Arc Rebellion Xyz Dragon\" once per turn.",
             "wordCount": 92
-        },
-        {
-            "id": 63504681,
-            "name": "Number 86: Heroic Champion - Rhongomyniad",
-            "desc": "2 or more (max. 5) Level 4 Warrior monsters\r\nOnce per turn, during your opponent's End Phase: Detach 1 material from this card. This card gains effects based on the number of materials attached to it.\r\n● 1+: Cannot be destroyed by battle.\r\n● 2+: Gains 1500 ATK/DEF.\r\n● 3+: Unaffected by other cards' effects.\r\n● 4+: Your opponent cannot Normal or Special Summon monsters.\r\n● 5+: Once per turn: You can destroy all cards your opponent controls.\r\n\r\n* The above text is unofficial and describes the card's functionality in the OCG.",
-            "wordCount": 92
-        },
-        {
-            "id": 9336190,
-            "name": "The Phantom Knights of Mist Claws",
-            "desc": "Target 1 of your banished \"The Phantom Knights\" monsters; add it to your hand. When an opponent's monster declares a direct attack while this card is in your GY: You can target 1 Level 4 or lower \"The Phantom Knights\" monster in your GY; Special Summon that monster, and if you do, Special Summon this card as a Normal Monster with the same original Level as that monster (Warrior/DARK/ATK 0/DEF 0). (This card is NOT treated as a Trap.) If Summoned this way, banish this card when it leaves the field.",
-            "wordCount": 91
         },
         {
             "id": 55285840,
@@ -1440,15 +1442,21 @@ const pkfireData: TestingDeckData = {
             "wordCount": 83
         },
         {
-            "id": 43694650,
-            "name": "Danger!? Jackalope?",
-            "desc": "You can reveal this card in your hand; your opponent randomly chooses 1 card from your entire hand, then you discard the chosen card. Then, if the discarded card was not \"Danger!? Jackalope?\", Special Summon 1 \"Danger!? Jackalope?\" from your hand, and if you do, draw 1 card. If this card is discarded: You can Special Summon 1 \"Danger!\" monster from your Deck in Defense Position, except \"Danger!? Jackalope?\". You can only use this effect of \"Danger!? Jackalope?\" once per turn.",
-            "wordCount": 81
-        },
-        {
             "id": 90432163,
             "name": "The Phantom Knights of Ancient Cloak",
             "desc": "If this card is in Attack Position: You can target 1 DARK monster on the field; change this card to Defense Position, and if you do, that monster gains 800 ATK/DEF until the end of your opponent's turn. You can banish this card from your GY; add 1 \"The Phantom Knights\" card from your Deck to your hand, except \"The Phantom Knights of Ancient Cloak\". You can only use each effect of \"The Phantom Knights of Ancient Cloak\" once per turn.",
+            "wordCount": 82
+        },
+        {
+            "id": 57143342,
+            "name": "Cir, Malebranche of the Burning Abyss",
+            "desc": "If you control a monster that is not a \"Burning Abyss\" monster, destroy this card. You can only use 1 of these effects of \"Cir, Malebranche of the Burning Abyss\" per turn, and only once that turn.\n●If you control no Spell/Trap Cards: You can Special Summon this card from your hand.\n●If this card is sent to the Graveyard: You can target 1 \"Burning Abyss\" monster in your Graveyard, except \"Cir, Malebranche of the Burning Abyss\"; Special Summon it.",
+            "wordCount": 81
+        },
+        {
+            "id": 43694650,
+            "name": "Danger!? Jackalope?",
+            "desc": "You can reveal this card in your hand; your opponent randomly chooses 1 card from your entire hand, then you discard the chosen card. Then, if the discarded card was not \"Danger!? Jackalope?\", Special Summon 1 \"Danger!? Jackalope?\" from your hand, and if you do, draw 1 card. If this card is discarded: You can Special Summon 1 \"Danger!\" monster from your Deck in Defense Position, except \"Danger!? Jackalope?\". You can only use this effect of \"Danger!? Jackalope?\" once per turn.",
             "wordCount": 81
         },
         {
@@ -1458,34 +1466,34 @@ const pkfireData: TestingDeckData = {
             "wordCount": 81
         },
         {
-            "id": 57143342,
-            "name": "Cir, Malebranche of the Burning Abyss",
-            "desc": "If you control a monster that is not a \"Burning Abyss\" monster, destroy this card. You can only use 1 of these effects of \"Cir, Malebranche of the Burning Abyss\" per turn, and only once that turn.\n●If you control no Spell/Trap Cards: You can Special Summon this card from your hand.\n●If this card is sent to the Graveyard: You can target 1 \"Burning Abyss\" monster in your Graveyard, except \"Cir, Malebranche of the Burning Abyss\"; Special Summon it.",
-            "wordCount": 80
-        },
-        {
             "id": 20758643,
             "name": "Graff, Malebranche of the Burning Abyss",
             "desc": "If you control a monster that is not a \"Burning Abyss\" monster, destroy this card. You can only use 1 of these effects of \"Graff, Malebranche of the Burning Abyss\" per turn, and only once that turn.\n●If you control no Spell/Trap Cards: You can Special Summon this card from your hand.\n●If this card is sent to the Graveyard: You can Special Summon 1 \"Burning Abyss\" monster from your Deck, except \"Graff, Malebranche of the Burning Abyss\".",
-            "wordCount": 78
+            "wordCount": 79
         },
         {
             "id": 62957424,
             "name": "Libic, Malebranche of the Burning Abyss",
             "desc": "If you control a monster that is not a \"Burning Abyss\" monster, destroy this card. You can only use 1 of these effects of \"Libic, Malebranche of the Burning Abyss\" per turn, and only once that turn.\n●If you control no Spell/Trap Cards: You can Special Summon this card from your hand.\n●If this card is sent to the Graveyard: You can Special Summon 1 Level 3 DARK Fiend-Type monster from your hand, but its effects are negated.",
-            "wordCount": 78
+            "wordCount": 79
         },
         {
             "id": 36553319,
             "name": "Farfa, Malebranche of the Burning Abyss",
             "desc": "If you control a monster that is not a \"Burning Abyss\" monster, destroy this card. You can only use 1 of these effects of \"Farfa, Malebranche of the Burning Abyss\" per turn, and only once that turn.\r\n● If you control no Spells/Traps: You can Special Summon this card from your hand.\r\n● If this card is sent to the GY: You can target 1 monster on the field; banish it until the End Phase.",
-            "wordCount": 75
+            "wordCount": 76
         },
         {
             "id": 62709239,
             "name": "The Phantom Knights of Break Sword",
             "desc": "2 Level 3 monsters\nOnce per turn: You can detach 1 material from this card, then target 1 card you control and 1 card your opponent controls; destroy them. If this Xyz Summoned card is destroyed: You can target 2 \"The Phantom Knights\" monsters with the same Level in your GY; Special Summon them and increase their Levels by 1, also you cannot Special Summon monsters for the rest of this turn, except DARK monsters.",
             "wordCount": 75
+        },
+        {
+            "id": 62645025,
+            "name": "The Phantom Knights of Wrong Magnetring",
+            "desc": "When an opponent's monster declares an attack: Negate that attack, then Special Summon this card in Attack Position as an Effect Monster (Warrior/DARK/Level 2/ATK 0/DEF 0) with the following effect. (This card is NOT treated as a Trap.)\n●(Quick Effect): You can send this card and 1 face-up card you control to the GY (either a \"The Phantom Knights\" monster or a \"Phantom Knights\" Continuous Spell/Trap); draw 2 cards.",
+            "wordCount": 74
         },
         {
             "id": 90664857,
@@ -1506,16 +1514,10 @@ const pkfireData: TestingDeckData = {
             "wordCount": 70
         },
         {
-            "id": 62645025,
-            "name": "The Phantom Knights of Wrong Magnetring",
-            "desc": "When an opponent's monster declares an attack: Negate that attack, then Special Summon this card in Attack Position as an Effect Monster (Warrior/DARK/Level 2/ATK 0/DEF 0) with the following effect. (This card is NOT treated as a Trap.)\n●(Quick Effect): You can send this card and 1 face-up card you control to the GY (either a \"The Phantom Knights\" monster or a \"Phantom Knights\" Continuous Spell/Trap); draw 2 cards.",
-            "wordCount": 69
-        },
-        {
             "id": 36426778,
             "name": "The Phantom Knights of Silent Boots",
             "desc": "If you control a \"The Phantom Knights\" monster, you can Special Summon this card (from your hand). You can only Special Summon \"The Phantom Knights of Silent Boots\" once per turn this way. You can banish this card from your GY; add 1 \"Phantom Knights\" Spell/Trap from your Deck to your hand. You can only use this effect of \"The Phantom Knights of Silent Boots\" once per turn.",
-            "wordCount": 68
+            "wordCount": 69
         },
         {
             "id": 12219047,
@@ -1533,7 +1535,13 @@ const pkfireData: TestingDeckData = {
             "id": 2857636,
             "name": "Knightmare Phoenix",
             "desc": "2 monsters with different names\nIf this card is Link Summoned: You can discard 1 card, then target 1 Spell/Trap your opponent controls; destroy it, then, if this card was co-linked when this effect was activated, you can draw 1 card. You can only use this effect of \"Knightmare Phoenix\" once per turn. Co-linked monsters you control cannot be destroyed by battle.",
-            "wordCount": 62
+            "wordCount": 63
+        },
+        {
+            "id": 98827725,
+            "name": "The Phantom Knights of Shade Brigandine",
+            "desc": "Special Summon this card in Defense Position as a Normal Monster (Warrior/DARK/Level 4/ATK 0/DEF 300). (This card is NOT treated as a Trap.) If you have no Traps in your GY, you can activate this card the turn it was Set. You can only activate 1 \"The Phantom Knights of Shade Brigandine\" per turn.",
+            "wordCount": 58
         },
         {
             "id": 46772449,
@@ -1548,16 +1556,10 @@ const pkfireData: TestingDeckData = {
             "wordCount": 54
         },
         {
-            "id": 98827725,
-            "name": "The Phantom Knights of Shade Brigandine",
-            "desc": "Special Summon this card in Defense Position as a Normal Monster (Warrior/DARK/Level 4/ATK 0/DEF 300). (This card is NOT treated as a Trap.) If you have no Traps in your GY, you can activate this card the turn it was Set. You can only activate 1 \"The Phantom Knights of Shade Brigandine\" per turn.",
-            "wordCount": 54
-        },
-        {
             "id": 54582424,
             "name": "Blue Mountain Butterspy",
             "desc": "Cannot be Normal Summoned/Set. Must first be Special Summoned by its own effect. When you Normal Summon a Warrior monster: You can Special Summon this card from your hand. Cannot be used as Synchro Material.\r\n\r\n* The above text is unofficial and describes the card's functionality in the OCG.",
-            "wordCount": 49
+            "wordCount": 50
         },
         {
             "id": 16195942,
@@ -1608,6 +1610,12 @@ const pkfireData: TestingDeckData = {
             "wordCount": 17
         },
         {
+            "id": 43898403,
+            "name": "Twin Twisters",
+            "desc": "Discard 1 card, then target up to 2 Spells/Traps on the field; destroy them.",
+            "wordCount": 15
+        },
+        {
             "id": 56410040,
             "name": "Junk Forward",
             "desc": "If you control no monsters, you can Special Summon this card (from your hand).",
@@ -1617,12 +1625,6 @@ const pkfireData: TestingDeckData = {
             "id": 32807846,
             "name": "Reinforcement of the Army",
             "desc": "Add 1 Level 4 or lower Warrior monster from your Deck to your hand.",
-            "wordCount": 14
-        },
-        {
-            "id": 43898403,
-            "name": "Twin Twisters",
-            "desc": "Discard 1 card, then target up to 2 Spells/Traps on the field; destroy them.",
             "wordCount": 14
         },
         {
@@ -1646,10 +1648,10 @@ const pkfireData: TestingDeckData = {
     ],
     "mct": {
         "mean": 63,
-        "median": 73,
-        "mode": 14
+        "median": 74,
+        "mode": 81
     }
-};
+}
 
 export const testingDecks: Record<SampleDecks, TestingDeckData> = {
     dddData,
@@ -1661,39 +1663,88 @@ export const testingDecks: Record<SampleDecks, TestingDeckData> = {
 
 //#region testingDescs
 
-type TestingDescData = Pick<YGOWordcount, 'desc' | 'wordCount'>;
+type TestingDescData = YGOWordcount;
 
 type SampleDescs = 'wordy' | 'special' | 'pendulum'
 
+// https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=22
 export const testingDescs: Record<SampleDescs, TestingDescData[]> = {
     wordy: [
         {
-            desc: 'test',
-            wordCount: 1,
+            "id": 42717221,
+            "name": "Cyberse Clock Dragon",
+            "desc": "\"Clock Wyvern\" + 1+ Link Monsters\nWhen this card is Fusion Summoned: You can send cards from the top of your Deck to the GY, equal to the total Link Rating of the materials used for this card's Fusion Summon, and if you do, until the end of the next turn, other monsters you control cannot attack, also this card gains 1000 ATK for each card sent to the GY by this effect. While you control a Link Monster(s), your opponent's monsters cannot target other monsters you control for attacks, also your opponent cannot target other monsters you control with card effects. If this Fusion Summoned card you control is sent to your GY by an opponent's card effect: You can add 1 Spell from your Deck to your hand.",
+            "wordCount": 129
         },
         {
-            desc: 'another test',
-            wordCount: 2,
+            "id": 72283691,
+            "name": "Golden Castle of Stromberg",
+            "desc": "Once per turn, during your Standby Phase, you must banish 10 cards from the top of your Deck face-down (this is not optional), or this card is destroyed. During your Main Phase: You can Special Summon 1 monster from your Deck that specifically lists the card \"Golden Castle of Stromberg\" in its text. You cannot Normal Summon/Set the turn you activate this effect (even if this card leaves the field). You can only use this effect of \"Golden Castle of Stromberg\" once per turn. When an opponent's monster declares an attack: Destroy the attacking monster, and if you do, inflict damage to your opponent equal to half the ATK that monster had on the field.",
+            "wordCount": 116
         },
-        // {
-        //     desc: 'an invalid test',
-        //     wordCount: 30,
-        // },
         {
-            desc: 'yet another test',
-            wordCount: 3,
+            "id": 53804307,
+            "name": "Blaster, Dragon Ruler of Infernos",
+            "desc": "If this card is in your hand or Graveyard: You can banish a total of 2 FIRE and/or Dragon-Type monsters from your hand and/or Graveyard, except this card; Special Summon this card. During your opponent's End Phase, if this card was Special Summoned: Return it to the hand. You can discard this card and 1 FIRE monster to the Graveyard, then target 1 card on the field; destroy that target. If this card is banished: You can add 1 FIRE Dragon-Type monster from your Deck to your hand. You can only use 1 \"Blaster, Dragon Ruler of Infernos\" effect per turn, and only once that turn.",
+            "wordCount": 108
+        },
+        {
+            "id": 90448279,
+            "name": "Divine Arsenal AA-ZEUS - Sky Thunder",
+            "desc": "2 Level 12 monsters\r\nOnce per turn, if an Xyz Monster battled this turn, you can also Xyz Summon \"Divine Arsenal AA-ZEUS - Sky Thunder\" by using 1 Xyz Monster you control as material. (Transfer its materials to this card.) (Quick Effect): You can detach 2 materials from this card; send all other cards from the field to the GY. Once per turn, if another card(s) you control is destroyed by battle or an opponent's card effect: You can attach 1 card from your hand, Deck, or Extra Deck to this card as material.",
+            "wordCount": 94
         },
     ],
     special: [
         {
-            desc: 'test',
-            wordCount: 1,
+            "id": 2144946,
+            "name": "F.A. Off-Road Grand Prix",
+            "desc": "Increase the Levels of all \"F.A.\" monsters on the field by 2 during the Main Phase only. You can only use each of the following effects of \"F.A. Off-Road Grand Prix\" once per turn.\n●When a \"F.A.\" monster you control is destroyed by battle: You can discard 1 random card from your opponent's hand.\n●If this face-up card on the field is destroyed by a card effect: You can add 1 \"F.A.\" card from your Deck to your hand, except \"F.A. Off-Road Grand Prix\".",
+            "wordCount": 84
+        },
+        {
+            "id": 36553319,
+            "name": "Farfa, Malebranche of the Burning Abyss",
+            "desc": "If you control a monster that is not a \"Burning Abyss\" monster, destroy this card. You can only use 1 of these effects of \"Farfa, Malebranche of the Burning Abyss\" per turn, and only once that turn.\r\n● If you control no Spells/Traps: You can Special Summon this card from your hand.\r\n● If this card is sent to the GY: You can target 1 monster on the field; banish it until the End Phase.",
+            "wordCount": 76
+        },
+        {
+            "id": 86170989,
+            "name": "Falchionβ",
+            "desc": "If this card destroys an opponent's monster by battle: Activate 1 of these effects.\n● Send 1 LIGHT Machine monster with 1200 or less ATK from your Deck to your GY.\n● Target 1 LIGHT Machine monster with 1200 or less ATK in your GY; Special Summon that target.",
+            "wordCount": 49
+        },
+        {
+            "id": 58074177,
+            "name": "Odd-Eyes Wing Dragon",
+            "desc": "[ Pendulum Effect ]\r\nOnce per turn, before damage calculation, if your monster battles an opponent's monster: You can make your monster gain ATK equal to the opponent's monster's ATK, until the end of the Damage Step.\r\n----------------------------------------\r\n[ Monster Effect ]\r\n1 DARK Tuner + 1 non-Tuner \"Clear Wing\" monster\r\nIf this card in the Monster Zone is destroyed: You can place this card in your Pendulum Zone. You can only use 1 of the following effects of \"Odd-Eyes Wing Dragon\" per turn, and only once that turn.\r\n● You can target 1 Effect Monster your opponent controls; negate its effects until the end of this turn.\r\n● During the Battle Phase, if you control this Synchro Summoned card (Quick Effect): You can destroy all Level 5 or higher monsters your opponent controls.",
+            "wordCount": 124
         },
     ],
     pendulum: [
         {
-            desc: 'test',
-            wordCount: 1,
+            "id": 51194046,
+            "name": "Qliphort Monolith",
+            "desc": "[ Pendulum Effect ]\nYou cannot Special Summon monsters, except \"Qli\" monsters. This effect cannot be negated. Once per turn, during the End Phase, if you Tribute Summoned this turn: You can draw a number of cards equal to the number of \"Qli\" monsters you Tributed for Tribute Summons this turn.\n----------------------------------------\n[ Flavor Text ]\nUnhandled exception at 0x1i-666 in qliphort.exe: Access violation writing location 0x00-000\nContinue, ignoring this error? <Y/N>...[ ]\nXlmgzxg drgs gsv Hzxivw Givv rh uliyrwwvm. Gsv hxlfitv szh yvvm fmovzhsvw.",
+            "wordCount": 81
+        },
+        {
+            "id": 78310590,
+            "name": "Abyss Actor - Mellow Madonna",
+            "desc": "[ Pendulum Effect ]\nYou can pay 1000 LP; add 1 \"Abyss Actor\" Pendulum Monster from your Deck to your hand, except \"Abyss Actor - Mellow Madonna\", also you cannot Special Summon monsters for the rest of this turn, except \"Abyss Actor\" Pendulum Monsters (even if this card leaves the field). You can only use this effect of \"Abyss Actor - Mellow Madonna\" once per turn.\n----------------------------------------\n[ Monster Effect ]\nGains 100 ATK for each \"Abyss Script\" Spell in your GY. You can only use each of the following effects of \"Abyss Actor - Mellow Madonna\" once per turn.\n●When a Pendulum Monster you control is destroyed by battle: You can Special Summon this card from your hand.\n●If an \"Abyss Script\" Spell Card or effect is activated: You can Special Summon 1 Level 4 or lower \"Abyss Actor\" Pendulum Monster from your Deck, but return it to the hand during the End Phase.",
+            "wordCount": 146
+        },
+        {
+            "id": 13331639,
+            "name": "Supreme King Z-ARC",
+            "desc": "[ Pendulum Effect ]\nFusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. Once per turn, when a card(s) is added from the Main Deck to your opponent's hand (except during the Draw Phase or the Damage Step): You can destroy that card(s).\n----------------------------------------\n[ Monster Effect ]\n4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)\nMust be Fusion Summoned. If this card is Special Summoned: Destroy all cards your opponent controls. Cannot be destroyed by your opponent's card effects. Your opponent cannot target this card with card effects. When this card destroys an opponent's monster by battle: You can Special Summon 1 \"Supreme King Dragon\" monster from your Deck or Extra Deck. If this card in the Monster Zone is destroyed by battle or card effect: You can place this card in your Pendulum Zone.",
+            "wordCount": 134
+        },
+        {
+            "id": 3611830,
+            "name": "Endymion, the Mighty Master of Magic",
+            "desc": "[ Pendulum Effect ]\nYou can remove 6 Spell Counters from your field; Special Summon this card from the Pendulum Zone, then count the number of cards you control that can have a Spell Counter, destroy up to that many cards on the field, and if you do, place Spell Counters on this card equal to the number of cards destroyed. You can only use this effect of \"Endymion, the Mighty Master of Magic\" once per turn.\n----------------------------------------\n[ Monster Effect ]\nOnce per turn, when a Spell/Trap Card or effect is activated (Quick Effect): You can return 1 card you control with a Spell Counter to the hand, and if you do, negate the activation, and if you do that, destroy it. Then, you can place the same number of Spell Counters on this card that the returned card had. While this card has a Spell Counter, your opponent cannot target it with card effects, also it cannot be destroyed by your opponent's card effects. When this card with a Spell Counter is destroyed by battle: You can add 1 Normal Spell from your Deck to your hand.",
+            "wordCount": 181
         },
     ],
 };
