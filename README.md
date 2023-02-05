@@ -2,6 +2,10 @@
 
 Check your deck!
 
+[![The CI, CD](https://github.com/MohnishKalia/deckstat/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/MohnishKalia/deckstat/actions/workflows/gh-pages.yml)
+
+[![The Tests](https://github.com/MohnishKalia/deckstat/actions/workflows/tests.yml/badge.svg)](https://github.com/MohnishKalia/deckstat/actions/workflows/tests.yml)
+
 ## Domain Map
 
 ```mermaid
