@@ -52,7 +52,7 @@
         ) as YDBDecklistEntries) {
             db.run("DROP TABLE IF EXISTS current_cards;");
             db.run("CREATE TEMP TABLE current_cards (name TEXT, num INTEGER);");
-            
+
             db.run("BEGIN TRANSACTION;");
             for (const card of cards) {
                 db.run("INSERT INTO current_cards VALUES (?, ?);", [
@@ -104,43 +104,58 @@
         class="hero min-h-[50vh]"
         style="background-image: url({TarotCardImg});"
     >
-        <div class="hero-overlay bg-opacity-60" />
+        <div class="hero-overlay bg-opacity-70" />
         <div class="hero-content text-center text-neutral-content">
-            <div class="max-w-md">
-                <h1 class="mb-5 text-5xl font-bold">Statistics For You</h1>
-                <p class="mb-5">
-                    Deckstat provides the ability to get in-depth insights into
-                    your Yu-Gi-Oh decks, whether on official or unoffical
-                    platforms. Try the service today!
+            <div class="max-w-lg">
+                <h1 class="mb-5 text-6xl font-bold text-primary-content">
+                    Deckbuilding Statistics for You
+                </h1>
+                <p class="mb-5 text-xl">
+                    Deckstat provides <b class="text-primary-content opacity-80"
+                        >in-depth insights</b
+                    >
+                    into your Yu-Gi-Oh decks, on
+                    <b class="text-primary-content opacity-80"
+                        >official or unoffical</b
+                    >
+                    platforms.
                 </p>
-                <div class="form-control w-full">
-                    <label for="decklist" class="label">
-                        <a href="#top" class="label-text-alt">Need Help?</a>
-                    </label>
-                    <div class="flex">
-                        <input
-                            type="text"
-                            id="decklist"
-                            bind:value={decklist_url}
-                            placeholder="Provide a link to a decklist"
-                            class="input input-bordered w-full"
-                        />
-                        <a
-                            href="#content"
-                            role="button"
-                            class="btn btn-square {dbNotLoaded}"
-                            on:click={(_) =>
-                                getYDBDecklist(decklist_url)
-                                    .then(getDBAdditions)
-                                    .then((dl) => (decklist = dl))}
-                        >
-                            <IconArrowRight />
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+
+    <section class="min-h-[50vh] bg-base-300">
+        <div class="container mx-auto px-4">
+            <h2 class="pt-10 mb-5 text-3xl font-bold" id="begin">
+                Begin Here
+            </h2>
+            <div class="form-control w-full">
+                <label for="decklist" class="label">
+                    <a href="#top" class="label-text-alt">Need Help?</a>
+                </label>
+                <div class="flex">
+                    <input
+                        type="text"
+                        id="decklist"
+                        bind:value={decklist_url}
+                        placeholder="Provide a link to a decklist"
+                        class="input input-bordered w-full"
+                    />
+                    <a
+                        href="#content"
+                        role="button"
+                        class="btn btn-square {dbNotLoaded}"
+                        on:click={(_) =>
+                            getYDBDecklist(decklist_url)
+                                .then(getDBAdditions)
+                                .then((dl) => (decklist = dl))}
+                    >
+                        <IconArrowRight />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- <section>
         <h2 class="my-5 text-3xl font-bold" id="progress">Progress</h2>
