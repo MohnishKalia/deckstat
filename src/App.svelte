@@ -138,7 +138,7 @@
             class="container mx-auto px-4 py-12 grid lg:grid-cols-[1fr_0.05fr_1fr] grid-cols-1 lg:grid-rows-1"
         >
             <div class="side">
-                <h2 class="sm:pt-12 mb-5 text-4xl font-bold" id="begin">
+                <h2 class="lg:pt-12 mb-5 text-4xl font-bold" id="begin">
                     Start Here
                 </h2>
                 <div class="form-control w-full">
