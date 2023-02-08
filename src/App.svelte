@@ -7,7 +7,7 @@
         IconFileImport,
         IconLink,
         IconTallymarks,
-        IconTimelineEvent
+        IconTimelineEvent,
     } from "@tabler/icons-svelte";
     import initSqlJs, { type Database } from "sql.js";
     import sqlWasm from "sql.js/dist/sql-wasm.wasm?url";
@@ -16,7 +16,7 @@
     import type {
         YDBDecklist,
         YDBDecklistEntries,
-        YGODecklist
+        YGODecklist,
     } from "./interfaces/ygo";
     import Footer from "./lib/Footer.svelte";
     import Navbar from "./lib/Navbar.svelte";
@@ -110,7 +110,9 @@
         style="background-image: url({TarotCardImg});"
     >
         <div class="hero-overlay bg-opacity-70" />
-        <div class="hero-content p-0 py-4 mx-auto text-center text-neutral-content">
+        <div
+            class="hero-content p-0 py-4 mx-auto text-center text-neutral-content"
+        >
             <div class="max-w-lg">
                 <h1 class="mb-5 text-6xl font-bold text-primary-content">
                     Deckbuilding Statistics for You
@@ -133,10 +135,10 @@
         <!-- lg:grid-flow-col grid-flow-row -->
         <!-- 1fr 0.05fr 1fr -->
         <div
-            class="container mx-auto px-4 py-4 grid lg:grid-cols-[1fr_0.05fr_1fr] grid-cols-1 lg:grid-rows-1"
+            class="container mx-auto px-4 py-12 grid lg:grid-cols-[1fr_0.05fr_1fr] grid-cols-1 lg:grid-rows-1"
         >
             <div class="side">
-                <h2 class="pt-10 mb-5 text-4xl font-bold" id="begin">
+                <h2 class="sm:pt-12 mb-5 text-4xl font-bold" id="begin">
                     Start Here
                 </h2>
                 <div class="form-control w-full">
@@ -231,13 +233,13 @@
             <h2 class="my-5 text-3xl font-bold" id="content">Word Count</h2>
             <p>
                 Whether or not people can play against your rouge deck without
-                live commentary on each effects.
+                live commentary on each effect.
             </p>
 
             <h3 class="my-5 text-2xl font-bold text-left">
                 The three most wordy cards are...
             </h3>
-            <div class="flex gap-3">
+            <div class="flex flex-col sm:flex-row gap-3">
                 {#each wordCounts.slice(0, 3) as top_card, i (top_card.name)}
                     <div class="card w-72 bg-neutral text-neutral-content">
                         <div class="card-body items-center text-center">
@@ -256,11 +258,13 @@
             <h3 class="my-5 text-2xl font-bold text-right">
                 Your most readable cards are...
             </h3>
-            <div class="flex gap-3 justify-end">
+            <div
+                class="flex flex-col-reverse sm:flex-row-reverse gap-3 items-end sm:items-stretch"
+            >
                 {#each wordCounts
                     .slice(-3)
                     .reverse() as bot_card, i (bot_card.name)}
-                    <div class="card w-972 bg-neutral text-neutral-content">
+                    <div class="card w-72 bg-neutral text-neutral-content">
                         <div class="card-body items-center text-center">
                             <h2 class="card-title">#{i + 1}</h2>
                             <p>{bot_card.name}</p>
