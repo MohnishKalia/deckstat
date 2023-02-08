@@ -1,9 +1,13 @@
 <script lang="ts">
     import {
+        IconAddressBook,
         IconArrowRight,
         IconChartHistogram,
+        IconDatabaseExport,
+        IconFileImport,
+        IconLink,
         IconTallymarks,
-        IconTimelineEvent,
+        IconTimelineEvent
     } from "@tabler/icons-svelte";
     import initSqlJs, { type Database } from "sql.js";
     import sqlWasm from "sql.js/dist/sql-wasm.wasm?url";
@@ -12,11 +16,12 @@
     import type {
         YDBDecklist,
         YDBDecklistEntries,
-        YGODecklist,
+        YGODecklist
     } from "./interfaces/ygo";
     import Footer from "./lib/Footer.svelte";
     import Navbar from "./lib/Navbar.svelte";
-    import { getCentralTendencies, getMCT, getWordCounts } from "./lib/utils";
+    import ProviderDisplay from "./lib/ProviderDisplay.svelte";
+    import { getMCT, getWordCounts } from "./lib/utils";
     import { getYDBDecklist } from "./lib/ydb";
 
     let decklist_url: string =
@@ -105,7 +110,7 @@
         style="background-image: url({TarotCardImg});"
     >
         <div class="hero-overlay bg-opacity-70" />
-        <div class="hero-content text-center text-neutral-content">
+        <div class="hero-content p-0 py-4 mx-auto text-center text-neutral-content">
             <div class="max-w-lg">
                 <h1 class="mb-5 text-6xl font-bold text-primary-content">
                     Deckbuilding Statistics for You
@@ -124,49 +129,87 @@
         </div>
     </div>
 
-    <section class="min-h-[50vh] bg-base-300">
-        <div class="container mx-auto px-4">
-            <h2 class="pt-10 mb-5 text-3xl font-bold" id="begin">
-                Begin Here
-            </h2>
-            <div class="form-control w-full">
-                <label for="decklist" class="label">
-                    <a href="#top" class="label-text-alt">Need Help?</a>
-                </label>
-                <div class="flex">
-                    <input
-                        type="text"
-                        id="decklist"
-                        bind:value={decklist_url}
-                        placeholder="Provide a link to a decklist"
-                        class="input input-bordered w-full"
-                    />
-                    <a
-                        href="#content"
-                        role="button"
-                        class="btn btn-square {dbNotLoaded}"
-                        on:click={(_) =>
-                            getYDBDecklist(decklist_url)
-                                .then(getDBAdditions)
-                                .then((dl) => (decklist = dl))}
-                    >
-                        <IconArrowRight />
-                    </a>
+    <section class="min-h-[50vh] bg-base-300 flex items-center">
+        <!-- lg:grid-flow-col grid-flow-row -->
+        <!-- 1fr 0.05fr 1fr -->
+        <div
+            class="container mx-auto px-4 py-4 grid lg:grid-cols-[1fr_0.05fr_1fr] grid-cols-1 lg:grid-rows-1"
+        >
+            <div class="side">
+                <h2 class="pt-10 mb-5 text-4xl font-bold" id="begin">
+                    Start Here
+                </h2>
+                <div class="form-control w-full">
+                    <label for="decklist" class="label">
+                        <a href="#top" class="label-text-alt">Need Help?</a>
+                    </label>
+                    <div class="flex">
+                        <input
+                            type="text"
+                            id="decklist"
+                            bind:value={decklist_url}
+                            placeholder="Provide a link to a decklist"
+                            class="input input-bordered input-md w-full"
+                        />
+                        <a
+                            href="#content"
+                            role="button"
+                            class="btn btn-square {dbNotLoaded}"
+                            on:click={(_) =>
+                                getYDBDecklist(decklist_url)
+                                    .then(getDBAdditions)
+                                    .then((dl) => (decklist = dl))}
+                        >
+                            <IconArrowRight />
+                        </a>
+                    </div>
                 </div>
+            </div>
+            <div class="divider lg:divider-horizontal" />
+            <div class="side flex flex-col gap-2">
+                <ProviderDisplay
+                    provider="Neuron / YGO Card DB"
+                    example="https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11"
+                    disabled={false}
+                >
+                    <IconDatabaseExport
+                        slot="icon"
+                        class="stroke-warning flex-shrink-0 w-6 h-6"
+                    />
+                </ProviderDisplay>
+                <ProviderDisplay
+                    provider=".ydk"
+                    example="My_Cool_Deck.ydk"
+                    disabled
+                >
+                    <IconFileImport
+                        slot="icon"
+                        class="stroke-success flex-shrink-0 w-6 h-6"
+                    />
+                </ProviderDisplay>
+                <ProviderDisplay
+                    provider="ydke://"
+                    example="ydke://o6lXBa70zAJKcEkDHQSLAhLZoALUmP0B!!!"
+                    disabled
+                >
+                    <IconLink
+                        slot="icon"
+                        class="stroke-error flex-shrink-0 w-6 h-6"
+                    />
+                </ProviderDisplay>
+                <ProviderDisplay
+                    provider="Dueling Book"
+                    example="https://www.duelingbook.com/deck?id=227361"
+                    disabled
+                >
+                    <IconAddressBook
+                        slot="icon"
+                        class="stroke-info flex-shrink-0 w-6 h-6"
+                    />
+                </ProviderDisplay>
             </div>
         </div>
     </section>
-
-    <!-- <section>
-        <h2 class="my-5 text-3xl font-bold" id="progress">Progress</h2>
-        <label class="swap swap-rotate">
-            <input type="checkbox" checked={!!db} disabled />
-
-            <IconDatabaseExport class="swap-on w-10 h-10"/>
-            
-            <IconDatabaseOff class="swap-off w-10 h-10 col"/>
-        </label>
-    </section> -->
 
     <section class="container mx-auto px-4 min-h-[50vh] text-center">
         {#if decklist}
