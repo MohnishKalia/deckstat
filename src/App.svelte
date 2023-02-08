@@ -13,15 +13,11 @@
     import sqlWasm from "sql.js/dist/sql-wasm.wasm?url";
     import CardsCDB from "../thirdparty/BabelCDB/cards.cdb?url";
     import TarotCardImg from "./assets/images/tarot-991041_1920.jpg";
-    import type {
-        YDBDecklist,
-        YDBDecklistEntries,
-        YGODecklist,
-    } from "./interfaces/ygo";
+    import type { YGODecklist } from "./interfaces/ygo";
     import Footer from "./lib/Footer.svelte";
     import Navbar from "./lib/Navbar.svelte";
     import ProviderDisplay from "./lib/ProviderDisplay.svelte";
-    import { getMCT, getWordCounts } from "./lib/utils";
+    import { getDBAdditions, getMCT, getWordCounts } from "./lib/utils";
     import { getYDBDecklist } from "./lib/ydb";
 
     let decklist_url: string =
@@ -40,60 +36,12 @@
         return sqlPromise;
     }
 
-    let dbResult: string;
     let db: Database;
 
     async function getSetDB(): Promise<Database> {
         const dbBytes = getDatabase().then((buf) => new Uint8Array(buf));
         const [dbData, SQL] = await Promise.all([dbBytes, getSQLJS()]);
         return new SQL.Database(new Uint8Array(dbData));
-    }
-
-    async function getDBAdditions(dl: YDBDecklist): Promise<YGODecklist> {
-        const result = {} as YGODecklist;
-
-        for (const [cardType, cards] of Object.entries(
-            dl
-        ) as YDBDecklistEntries) {
-            db.run("DROP TABLE IF EXISTS current_cards;");
-            db.run("CREATE TEMP TABLE current_cards (name TEXT, num INTEGER);");
-
-            db.run("BEGIN TRANSACTION;");
-            for (const card of cards) {
-                db.run("INSERT INTO current_cards VALUES (?, ?);", [
-                    card.name,
-                    card.num,
-                ]);
-            }
-            db.run("COMMIT;");
-
-            const stmt = db.prepare(`
-                with arn as ( 
-                    select t.id, t.name, cc.num, t.desc,
-                    ROW_NUMBER() OVER (PARTITION BY t.name ORDER BY length(t.desc) ASC) AS rn
-                    from texts t
-                    inner join datas d
-                        on t.id = d.id
-                    inner join current_cards cc
-                        on t.name = cc.name
-                )
-                select id, name, num, desc
-                from arn 
-                where rn = 1
-            `);
-
-            const rows = [];
-            while (stmt.step()) {
-                const row = stmt.getAsObject();
-                rows.push(row);
-            }
-            stmt.free();
-
-            result[cardType] = rows;
-        }
-
-        dbResult = JSON.stringify(result, null, 2);
-        return result;
     }
 
     getSetDB().then((ndb) => (db = ndb));
@@ -159,7 +107,7 @@
                             class="btn btn-square {dbNotLoaded}"
                             on:click={(_) =>
                                 getYDBDecklist(decklist_url)
-                                    .then(getDBAdditions)
+                                    .then((data) => getDBAdditions(db, data))
                                     .then((dl) => (decklist = dl))}
                         >
                             <IconArrowRight />
