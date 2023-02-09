@@ -31,7 +31,7 @@
     let tabs = [
         { name: "Neuron", disabled: false },
         { name: ".ydk", disabled: true },
-        { name: "ydke://", disabled: false },
+        { name: "ydke://", disabled: true },
         { name: "DBook", disabled: true },
     ];
     let activeTab = 0;
@@ -200,7 +200,7 @@
                 for="help-modal"
                 class="btn btn-sm btn-circle absolute right-2 top-2">✕</label
             >
-            <h3 class="font-bold text-2xl">How to source decklists</h3>
+            <h3 class="font-bold text-2xl">Where to source decklists</h3>
             <!-- https://github.com/saadeghi/daisyui/discussions/577#discussioncomment-2342266 -->
             <div class="tabs mb-4">
                 {#each tabs as tab, index}
@@ -216,16 +216,16 @@
                     >
                 {/each}
             </div>
-            <div class="card h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 0}>
+            <div class="h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 0}>
                 <DocsYdb />
             </div>
-            <div class="card h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 1}>
+            <div class="h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 1}>
                 <p>Not implemented</p>
             </div>
-            <div class="card h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 2}>
+            <div class="h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 2}>
                 <DocsYdke />
             </div>
-            <div class="card h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 3}>
+            <div class="h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 3}>
                 <p>Not implemented</p>
             </div>
         </div>
