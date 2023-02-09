@@ -14,6 +14,8 @@
     import CardsCDB from "../thirdparty/BabelCDB/cards.cdb?url";
     import TarotCardImg from "./assets/images/tarot-991041_1920.jpg";
     import type { YGODecklist } from "./interfaces/ygo";
+    import DocsYdb from "./lib/docs/DocsYdb.svelte";
+    import DocsYdke from "./lib/docs/DocsYdke.svelte";
     import Footer from "./lib/Footer.svelte";
     import Navbar from "./lib/Navbar.svelte";
     import ProviderDisplay from "./lib/ProviderDisplay.svelte";
@@ -23,6 +25,16 @@
     let decklist_url: string =
         "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11";
     let decklist: YGODecklist;
+
+    let db: Database;
+
+    let tabs = [
+        { name: "Neuron", disabled: false },
+        { name: ".ydk", disabled: true },
+        { name: "ydke://", disabled: false },
+        { name: "DBook", disabled: true },
+    ];
+    let activeTab = 0;
 
     async function getDatabase() {
         const dataPromise = fetch(CardsCDB).then((res) => res.arrayBuffer());
@@ -36,8 +48,6 @@
         return sqlPromise;
     }
 
-    let db: Database;
-
     async function getSetDB(): Promise<Database> {
         const dbBytes = getDatabase().then((buf) => new Uint8Array(buf));
         const [dbData, SQL] = await Promise.all([dbBytes, getSQLJS()]);
@@ -46,7 +56,7 @@
 
     getSetDB().then((ndb) => (db = ndb));
 
-    $: dbNotLoaded = db ? "" : "btn-disabled";
+    $: dbNotLoaded = db ? "" : "btn-disabled cursor-not-allowed";
     $: wordCounts = decklist && getWordCounts(decklist);
 </script>
 
@@ -54,7 +64,7 @@
     <Navbar />
 
     <div
-        class="hero min-h-[50vh]"
+        class="hero sm:min-h-[50vh]"
         style="background-image: url({TarotCardImg});"
     >
         <div class="hero-overlay bg-opacity-70" />
@@ -91,7 +101,11 @@
                 </h2>
                 <div class="form-control w-full">
                     <label for="decklist" class="label">
-                        <a href="#top" class="label-text-alt">Need Help?</a>
+                        <label
+                            for="help-modal"
+                            class="link link-hover label-text-alt"
+                            >Need Help?</label
+                        >
                     </label>
                     <div class="flex">
                         <input
@@ -170,8 +184,52 @@
                 Provide a decklist above
             </h2>
             <p>Astral insight awaits.</p>
+
+            <label for="help-modal" class="btn text-3xl mt-20 normal-case"
+                >Having difficulties?</label
+            >
         {/if}
     </section>
+
+    <!-- Help Modal -->
+    <input type="checkbox" id="help-modal" class="modal-toggle" />
+    <!-- <div class="modal modal-bottom sm:modal-middle"> -->
+    <div class="modal">
+        <div class="modal-box w-11/12 max-w-5xl relative">
+            <label
+                for="help-modal"
+                class="btn btn-sm btn-circle absolute right-2 top-2">✕</label
+            >
+            <h3 class="font-bold text-2xl">How to source decklists</h3>
+            <!-- https://github.com/saadeghi/daisyui/discussions/577#discussioncomment-2342266 -->
+            <div class="tabs mb-4">
+                {#each tabs as tab, index}
+                    {@const tabDisabled = tab.disabled
+                        ? "text-neutral-focus cursor-not-allowed disabled"
+                        : ""}
+                    {@const tabActive = activeTab === index ? "tab-active" : ""}
+                    <!-- svelte-ignore a11y-invalid-attribute -->
+                    <a
+                        href="javascript:void(0);"
+                        class="tab tab-md tab-bordered {tabDisabled} {tabActive}"
+                        on:click={() => (activeTab = index)}>{tab.name}</a
+                    >
+                {/each}
+            </div>
+            <div class="card h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 0}>
+                <DocsYdb />
+            </div>
+            <div class="card h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 1}>
+                <p>Not implemented</p>
+            </div>
+            <div class="card h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 2}>
+                <DocsYdke />
+            </div>
+            <div class="card h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 3}>
+                <p>Not implemented</p>
+            </div>
+        </div>
+    </div>
 
     {#if wordCounts}
         {@const mct = getMCT(wordCounts)}
