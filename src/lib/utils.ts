@@ -1,5 +1,6 @@
+import type { Database } from "sql.js";
 import type { CentralTendencies } from "../interfaces/common";
-import type { YGODecklist, YGOWordcount } from "../interfaces/ygo";
+import type { YDBDecklist, YDBDecklistEntries, YGODecklist, YGOWordcount } from "../interfaces/ygo";
 
 export function wordCount(s: string): number {
     const normS = s
@@ -71,4 +72,50 @@ export function getMCT(wordCounts: YGOWordcount[]) {
     return getCentralTendencies(
         wordCounts.map((wc) => wc.wordCount)
     );
+}
+
+export async function getDBAdditions(cdb: Database, dl: YDBDecklist): Promise<YGODecklist> {
+    const result = {} as YGODecklist;
+
+    for (const [cardType, cards] of Object.entries(
+        dl
+    ) as YDBDecklistEntries) {
+        cdb.run("DROP TABLE IF EXISTS current_cards;");
+        cdb.run("CREATE TEMP TABLE current_cards (name TEXT, num INTEGER);");
+
+        cdb.run("BEGIN TRANSACTION;");
+        for (const card of cards) {
+            cdb.run("INSERT INTO current_cards VALUES (?, ?);", [
+                card.name,
+                card.num,
+            ]);
+        }
+        cdb.run("COMMIT;");
+
+        const stmt = cdb.prepare(`
+            with arn as ( 
+                select t.id, t.name, cc.num, t.desc,
+                ROW_NUMBER() OVER (PARTITION BY t.name ORDER BY length(t.desc) ASC) AS rn
+                from texts t
+                inner join datas d
+                    on t.id = d.id
+                inner join current_cards cc
+                    on t.name = cc.name
+            )
+            select id, name, num, desc
+            from arn 
+            where rn = 1
+        `);
+
+        const rows = [];
+        while (stmt.step()) {
+            const row = stmt.getAsObject();
+            rows.push(row);
+        }
+        stmt.free();
+
+        result[cardType] = rows;
+    }
+
+    return result;
 }

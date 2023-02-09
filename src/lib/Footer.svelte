@@ -3,5 +3,15 @@
 >
     <div>
         <p>Copyright © {new Date().getFullYear()} - Mohnish Kalia</p>
+        <p>
+            For comments/concerns/enhancements - <a
+                class="link"
+                href="https://github.com/MohnishKalia/deckstat/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Github Repository</a
+            >
+        </p>
     </div>
 </footer>
