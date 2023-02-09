@@ -1,9 +1,9 @@
 <script>
-    import Neuron_DeckOpts from "../../assets/docs_images/Neuron_DeckOpts.png";
-    import Neuron_EditView from "../../assets/docs_images/Neuron_EditView.png";
-    import Neuron_PrivacyToggle from "../../assets/docs_images/Neuron_PrivacyToggle.png";
-    import Neuron_ViewView from "../../assets/docs_images/Neuron_ViewView.png";
-    import Neuron_ShareNotes from "../../assets/docs_images/Neuron_ShareNotes.png";
+    import Neuron_DeckOpts from "../../assets/docsimages/Neuron_DeckOpts.png";
+    import Neuron_EditView from "../../assets/docsimages/Neuron_EditView.png";
+    import Neuron_PrivacyToggle from "../../assets/docsimages/Neuron_PrivacyToggle.png";
+    import Neuron_ViewView from "../../assets/docsimages/Neuron_ViewView.png";
+    import Neuron_ShareNotes from "../../assets/docsimages/Neuron_ShareNotes.png";
 </script>
 
 <h3 class="text-lg font-bold">Neuron / YGO Card DB</h3>
