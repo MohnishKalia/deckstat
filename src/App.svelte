@@ -123,6 +123,7 @@
                         <a
                             href="#content"
                             role="button"
+                            aria-label="Load decklist button"
                             class="btn btn-square {dbNotLoaded}"
                             on:click={(_) =>
                                 getYDBDecklist(decklist_url)
@@ -218,33 +219,36 @@
                         ? "text-neutral-focus cursor-not-allowed disabled"
                         : ""}
                     {@const tabActive = activeTab === index ? "tab-active" : ""}
-                    <!-- svelte-ignore a11y-invalid-attribute -->
                     <a
-                        href="javascript:void(0);"
+                        href="#help-tab-{index}"
                         class="tab tab-md tab-bordered {tabDisabled} {tabActive}"
                         on:click={() => (activeTab = index)}>{tab.name}</a
                     >
                 {/each}
             </div>
             <div
+                id="help-tab-0"
                 class="h-[60vh] overflow-y-scroll"
                 class:hidden={activeTab !== 0}
             >
                 <DocsYdb />
             </div>
             <div
+                id="help-tab-1"
                 class="h-[60vh] overflow-y-scroll"
                 class:hidden={activeTab !== 1}
             >
                 <p>Not implemented</p>
             </div>
             <div
+                id="help-tab-2"
                 class="h-[60vh] overflow-y-scroll"
                 class:hidden={activeTab !== 2}
             >
                 <DocsYdke />
             </div>
             <div
+                id="help-tab-3"
                 class="h-[60vh] overflow-y-scroll"
                 class:hidden={activeTab !== 3}
             >
