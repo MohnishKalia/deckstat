@@ -13,7 +13,7 @@ export default defineConfig({
         interlaced: false,
       },
       mozjpeg: {
-        quality: 20,
+        quality: 80,
       },
       pngquant: {
         quality: [0.5, 0.6],
