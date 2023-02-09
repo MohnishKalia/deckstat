@@ -46,35 +46,45 @@
 >
     <div class="carousel-item">
         <img
-            class="max-w-[15rem]"
+            class="max-w-[15rem] aspect-[37/80]"
+            width="296"
+            height="640"
             src={Neuron_DeckOpts}
             alt="Decks screen view with edit and view buttons"
         />
     </div>
     <div class="carousel-item">
         <img
-            class="max-w-[15rem]"
+            class="max-w-[15rem] aspect-[37/80]"
+            width="296"
+            height="640"
             src={Neuron_EditView}
             alt="Deck edit screen with tag button highlighted"
         />
     </div>
     <div class="carousel-item">
         <img
-            class="max-w-[15rem]"
+            class="max-w-[15rem] aspect-[37/80]"
+            width="296"
+            height="640"
             src={Neuron_PrivacyToggle}
             alt="Deck info screen with privacy toggle on"
         />
     </div>
     <div class="carousel-item">
         <img
-            class="max-w-[15rem]"
+            class="max-w-[15rem] aspect-[37/80]"
+            width="296"
+            height="640"
             src={Neuron_ViewView}
             alt="Deck view screen with share button highlighted"
         />
     </div>
     <div class="carousel-item">
         <img
-            class="max-w-[15rem]"
+            class="max-w-[15rem] aspect-[37/80]"
+            width="296"
+            height="640"
             src={Neuron_ShareNotes}
             alt="Notes sharing view with decklist url highlighted"
         />
