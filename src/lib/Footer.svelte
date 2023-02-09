@@ -6,7 +6,7 @@
         <p>
             For comments/concerns/enhancements - <a
                 class="link"
-                href="https://github.com/MohnishKalia/deckstat"
+                href="https://github.com/MohnishKalia/deckstat/issues"
                 target="_blank"
                 rel="noopener noreferrer"
             >
