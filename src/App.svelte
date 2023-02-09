@@ -1,6 +1,7 @@
 <script lang="ts">
     import {
         IconAddressBook,
+        IconAlertOctagon,
         IconArrowRight,
         IconChartHistogram,
         IconDatabaseExport,
@@ -28,6 +29,8 @@
 
     let db: Database;
 
+    let errText: string;
+
     let tabs = [
         { name: "Neuron", disabled: false },
         { name: ".ydk", disabled: true },
@@ -54,7 +57,9 @@
         return new SQL.Database(new Uint8Array(dbData));
     }
 
-    getSetDB().then((ndb) => (db = ndb));
+    getSetDB()
+        .then((ndb) => (db = ndb))
+        .catch((_) => (errText = "Internal DB not loaded."));
 
     $: dbNotLoaded = db ? "" : "btn-disabled cursor-not-allowed";
     $: wordCounts = decklist && getWordCounts(decklist);
@@ -122,7 +127,12 @@
                             on:click={(_) =>
                                 getYDBDecklist(decklist_url)
                                     .then((data) => getDBAdditions(db, data))
-                                    .then((dl) => (decklist = dl))}
+                                    .then((dl) => (decklist = dl))
+                                    .catch(
+                                        (_) =>
+                                            (errText =
+                                                "The decklist provided was not valid.")
+                                    )}
                         >
                             <IconArrowRight />
                         </a>
@@ -216,16 +226,28 @@
                     >
                 {/each}
             </div>
-            <div class="h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 0}>
+            <div
+                class="h-[60vh] overflow-y-scroll"
+                class:hidden={activeTab !== 0}
+            >
                 <DocsYdb />
             </div>
-            <div class="h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 1}>
+            <div
+                class="h-[60vh] overflow-y-scroll"
+                class:hidden={activeTab !== 1}
+            >
                 <p>Not implemented</p>
             </div>
-            <div class="h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 2}>
+            <div
+                class="h-[60vh] overflow-y-scroll"
+                class:hidden={activeTab !== 2}
+            >
                 <DocsYdke />
             </div>
-            <div class="h-[60vh] overflow-y-scroll" class:hidden={activeTab !== 3}>
+            <div
+                class="h-[60vh] overflow-y-scroll"
+                class:hidden={activeTab !== 3}
+            >
                 <p>Not implemented</p>
             </div>
         </div>
@@ -338,6 +360,28 @@
                 <pre>{JSON.stringify(decklist, null, 2)}</pre>
             </details>
         </section>
+    {/if}
+
+    <!-- error display -->
+    {#if errText}
+        <div class="toast">
+            <div class="alert alert-error">
+                <div>
+                    <IconAlertOctagon
+                        class="stroke-current flex-shrink-0 w-6 h-6"
+                    />
+                    <div>
+                        <span>{errText}</span>
+                    </div>
+                </div>
+                <div class="flex-none">
+                    <button
+                        on:click={() => (errText = null)}
+                        class="btn btn-sm current btn-circle">✕</button
+                    >
+                </div>
+            </div>
+        </div>
     {/if}
 
     <Footer />

@@ -14,7 +14,7 @@
 </p>
 
 <h5 class="mb-2 text-md font-bold">Mobile (Neuron App)</h5>
-<ol class="mb-1 list-decimal list-inside">
+<ol class="mb-1 list-decimal list-inside space-y-1">
     <li>
         Start by opening the Neuron App and navigating to the <code
             class="bg-base-300">Decks</code
