@@ -42,15 +42,7 @@ export function getCentralTendencies(arr: number[]): CentralTendencies {
 
     const sum = arr.reduce((sum, cur) => sum + cur, 0);
 
-    const histogram = arr.reduce((prev, cur) => {
-        if (!prev[cur]) prev[cur] = 1;
-        else prev[cur]++;
-        return prev;
-    }, {} as Record<number, number>);
-    const histogramArr = Object.entries(histogram).map(([val, cnt]) => ({
-        val,
-        cnt,
-    }));
+    const histogramArr = getFrequencies(arr);
 
     const mean = sum / arr.length;
     const median = arr[Math.floor(arr.length / 2)]; // needs to be an arr element
@@ -65,6 +57,21 @@ export function getCentralTendencies(arr: number[]): CentralTendencies {
         median,
         mode,
     };
+}
+
+export function getFrequencies(arr: number[]) {
+    const histogram = arr.reduce((prev, cur) => {
+        if (!prev[cur])
+            prev[cur] = 1;
+        else
+            prev[cur]++;
+        return prev;
+    }, {} as Record<number, number>);
+    const histogramArr = Object.entries(histogram).map(([val, cnt]) => ({
+        val: parseInt(val),
+        cnt,
+    }));
+    return histogramArr;
 }
 
 export function getMCT(wordCounts: YGOWordcount[]) {

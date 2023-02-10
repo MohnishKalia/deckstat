@@ -67,6 +67,9 @@ export async function getDBAdditionsByName(cdb: Database, dl: NameDecklist): Pro
  */
 export async function getDBAdditionsById(cdb: Database, dl: IdDecklist): Promise<YGODecklist> {
     const result = {} as YGODecklist;
+    
+    throw new Error("getDBAdditionsById unimplemented");
+    
     return result;
 }
 

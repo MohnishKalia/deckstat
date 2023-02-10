@@ -24,7 +24,7 @@
     import { getMCT, getWordCounts } from "./lib/utils";
 
     let decklist_url: string =
-        "ydke://o6lXBUpwSQMS2aAC!viOnArXwAQU=!rvTMAh0EiwLUmP0B!";
+        "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
     let decklist: YGODecklist;
 
     let db: Database;

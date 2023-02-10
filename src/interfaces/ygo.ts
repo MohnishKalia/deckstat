@@ -16,7 +16,7 @@ export interface IdCardData {
     num: number;
 }
 export interface IdDecklist {
-    main: IdCardData[];
+    mains: IdCardData[];
     extras: IdCardData[];
     sides: IdCardData[];
 }
