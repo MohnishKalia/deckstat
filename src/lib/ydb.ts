@@ -1,14 +1,13 @@
-import type { YDBDecklist } from "../interfaces/ygo";
+import type { NameDecklist } from "../interfaces/ygo";
 
-export async function getYDBDecklist(url: string): Promise<YDBDecklist> {
-    const urlObj = new URL(url);
-    if (urlObj.origin !== "https://www.db.yugioh-card.com")
+export async function getYDBDecklist(url: URL): Promise<NameDecklist> {
+    if (url.origin !== "https://www.db.yugioh-card.com")
         throw new Error("invalid url");
 
     const ca = import.meta.env.DEV
         ? "https://cors-anywhere.herokuapp.com/"
         : "https://mohnishkalia-cors-proxy.onrender.com/";
-    const deckPromise = fetch(ca + urlObj).then((res) => res.text());
+    const deckPromise = fetch(ca + url).then((res) => res.text());
     const deckDoc = await deckPromise;
 
     const parser = new DOMParser();

@@ -18,10 +18,10 @@
     import DocsYdb from "./lib/docs/DocsYdb.svelte";
     import DocsYdke from "./lib/docs/DocsYdke.svelte";
     import Footer from "./lib/Footer.svelte";
+    import { getYGODecklist } from "./lib/getygo";
     import Navbar from "./lib/Navbar.svelte";
     import ProviderDisplay from "./lib/ProviderDisplay.svelte";
-    import { getDBAdditions, getMCT, getWordCounts } from "./lib/utils";
-    import { getYDBDecklist } from "./lib/ydb";
+    import { getMCT, getWordCounts } from "./lib/utils";
 
     let decklist_url: string =
         "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11";
@@ -62,6 +62,8 @@
         .catch((_) => (errText = "Internal DB not loaded."));
 
     $: dbNotLoaded = db ? "" : "btn-disabled cursor-not-allowed";
+    // TODO: Maybe turn this into const inline for the word count section,
+    // or expand to include all statistics including wordcount
     $: wordCounts = decklist && getWordCounts(decklist);
 </script>
 
@@ -126,12 +128,12 @@
                             aria-label="Load decklist button"
                             class="btn btn-square {dbNotLoaded}"
                             on:click={(_) =>
-                                getYDBDecklist(decklist_url)
-                                    .then((data) => getDBAdditions(db, data))
+                                getYGODecklist(db, decklist_url)
                                     .then((dl) => (decklist = dl))
                                     .catch(
-                                        (_) =>
+                                        (err) =>
                                             (errText =
+                                                err?.message ??
                                                 "The decklist provided was not valid.")
                                     )}
                         >
