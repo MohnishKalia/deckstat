@@ -16,9 +16,7 @@ export interface IdCardData {
     num: number;
 }
 export interface IdDecklist {
-    monsters: IdCardData[];
-    spells: IdCardData[];
-    traps: IdCardData[];
+    main: IdCardData[];
     extras: IdCardData[];
     sides: IdCardData[];
 }

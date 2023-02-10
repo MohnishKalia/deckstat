@@ -24,7 +24,7 @@
     import { getMCT, getWordCounts } from "./lib/utils";
 
     let decklist_url: string =
-        "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11";
+        "ydke://o6lXBUpwSQMS2aAC!viOnArXwAQU=!rvTMAh0EiwLUmP0B!";
     let decklist: YGODecklist;
 
     let db: Database;
@@ -34,7 +34,7 @@
     let tabs = [
         { name: "Neuron", disabled: false },
         { name: ".ydk", disabled: true },
-        { name: "ydke://", disabled: true },
+        { name: "ydke://", disabled: false },
         { name: "DBook", disabled: true },
     ];
     let activeTab = 0;
@@ -166,8 +166,8 @@
                 </ProviderDisplay>
                 <ProviderDisplay
                     provider="ydke://"
-                    example="ydke://o6lXBa70zAJKcEkDHQSLAhLZoALUmP0B!!!"
-                    disabled
+                    example="ydke://o6lXBUpwSQMS2aAC!viOnArXwAQU=!rvTMAh0EiwLUmP0B!"
+                    disabled={false}
                 >
                     <IconLink
                         slot="icon"
@@ -198,8 +198,10 @@
             </h2>
             <p>Astral insight awaits.</p>
 
-            <label for="help-modal" class="btn text-3xl mt-20 normal-case"
-                >Having difficulties?</label
+            <label for="help-modal"
+                ><button class="btn text-3xl mt-20 normal-case"
+                    >Having difficulties?</button
+                ></label
             >
         {/if}
     </section>

@@ -78,13 +78,15 @@ export async function getDBAdditionsById(cdb: Database, dl: IdDecklist): Promise
  * @param dispatch_url url from the user to dispatch internally
  * @returns decklist of YGOCard to use for analysis
  */
-export function getYGODecklist(db: Database, dispatch_url: string): Promise<YGODecklist> {
+export async function getYGODecklist(db: Database, dispatch_url: string): Promise<YGODecklist> {
     const urlObj = new URL(dispatch_url);
 
     if (urlObj.origin === "https://www.db.yugioh-card.com") {
-        return getYDBDecklist(urlObj).then((data) => getDBAdditionsByName(db, data));
-    } else if (urlObj.protocol === "ydke://") {
-        return getYDKEDecklist(urlObj).then(data => getDBAdditionsById(db, data));
+        const ydbDL = await getYDBDecklist(urlObj);
+        return await getDBAdditionsByName(db, ydbDL);
+    } else if (urlObj.protocol === "ydke:") {
+        const ydkeDL = await getYDKEDecklist(urlObj);
+        return await getDBAdditionsById(db, ydkeDL);
     } else {
         throw new Error("Invalid or unsupported decklist provided");
     }
