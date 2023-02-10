@@ -72,3 +72,9 @@ export function getMCT(wordCounts: YGOWordcount[]) {
         wordCounts.map((wc) => wc.wordCount)
     );
 }
+
+export function getCORSProxy() {
+    return import.meta.env.DEV
+        ? "https://cors-anywhere.herokuapp.com/"
+        : "https://mohnishkalia-cors-proxy.onrender.com/";
+}
