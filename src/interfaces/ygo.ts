@@ -25,6 +25,7 @@ export type IdDecklistEntries = [keyof IdDecklist, IdCardData[]][];
 
 export interface YGOCard extends NameCardData, IdCardData {
     desc: string;
+    type: string;
 }
 
 export type YGODecklist = Record<keyof NameDecklist, YGOCard[]>;

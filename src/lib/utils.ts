@@ -46,9 +46,7 @@ export function getCentralTendencies(arr: number[]): CentralTendencies {
 
     const mean = sum / arr.length;
     const median = arr[Math.floor(arr.length / 2)]; // needs to be an arr element
-    const mode = parseFloat(
-        histogramArr.sort((v1, v2) => v2.cnt - v1.cnt)[0]?.val
-    );
+    const mode = histogramArr.sort((v1, v2) => v2.cnt - v1.cnt)[0]?.val;
 
     // console.log({ arr, sum, histogram, mean, median, mode });
 
