@@ -21,12 +21,11 @@
     import { getYGODecklist } from "./lib/getygo";
     import Navbar from "./lib/Navbar.svelte";
     import ProviderDisplay from "./lib/ProviderDisplay.svelte";
-    import { getMCT, getWordCounts } from "./lib/utils";
+    import { getMCT, getWordCounts, getYGOBanlist } from "./lib/utils";
 
-    let decklist_url: string =
-        ""
-        // "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11"
-        // "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
+    let decklist_url: string = "";
+    // "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11"
+    // "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
     let decklist: YGODecklist;
 
     let db: Database;
@@ -40,6 +39,8 @@
         { name: "DBook", disabled: true },
     ];
     let activeTab = 0;
+
+    const banlist = getYGOBanlist();
 
     async function getDatabase() {
         const dataPromise = fetch(CardsCDB).then((res) => res.arrayBuffer());
@@ -125,7 +126,7 @@
                             class="input input-bordered input-md w-full"
                         />
                         <a
-                            href="#content"
+                            href="#analysis-start-section"
                             role="button"
                             aria-label="Load decklist button"
                             class="btn btn-square {dbNotLoaded}"
@@ -358,18 +359,23 @@
         </section>
     {/if}
 
-    {#if decklist}
+    {#if decklist && banlist && wordCounts}
         <section class="container mx-auto px-4 overflow-clip">
             <div class="divider mt-4">raw results</div>
 
             <details class="bg-base-200 my-2">
-                <summary>Word Count</summary>
-                <pre>{JSON.stringify(wordCounts, null, 2)}</pre>
+                <summary>Raw Decklist</summary>
+                <pre>{JSON.stringify(decklist, null, 2)}</pre>
             </details>
 
             <details class="bg-base-200 my-2">
-                <summary>Raw Decklist</summary>
-                <pre>{JSON.stringify(decklist, null, 2)}</pre>
+                <summary>Banlist</summary>
+                <pre>{JSON.stringify(banlist, null, 2)}</pre>
+            </details>
+
+            <details class="bg-base-200 my-2">
+                <summary>Word Count</summary>
+                <pre>{JSON.stringify(wordCounts, null, 2)}</pre>
             </details>
         </section>
     {/if}

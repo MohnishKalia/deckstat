@@ -33,3 +33,8 @@ export type YGODecklist = Record<keyof NameDecklist, YGOCard[]>;
 export type YGOWordcount = Pick<YGOCard, 'id' | 'name' | 'desc'> & {
     wordCount: number
 }
+
+export type YGOBanlist = {
+    [id: number]: 0 | 1 | 2,
+}
+export type BanlistPair = [keyof YGOBanlist, YGOBanlist[keyof YGOBanlist]];

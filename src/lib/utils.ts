@@ -1,5 +1,6 @@
+import YGOTCGBanlistRaw from "../../thirdparty/LFLists/0TCG.lflist.conf?raw";
 import type { CentralTendencies } from "../interfaces/common";
-import type { YGODecklist, YGOWordcount } from "../interfaces/ygo";
+import type { BanlistPair as BanlistEntry, YGOBanlist, YGODecklist, YGOWordcount } from "../interfaces/ygo";
 
 export function wordCount(s: string): number {
     const normS = s
@@ -57,6 +58,11 @@ export function getCentralTendencies(arr: number[]): CentralTendencies {
     };
 }
 
+/**
+ * Obtains frequency of numbers within an array
+ * @param arr array of numbers to process
+ * @returns an object with each number and its frequency
+ */
 export function getFrequencies(arr: number[]) {
     const histogram = arr.reduce((prev, cur) => {
         if (!prev[cur])
@@ -82,4 +88,28 @@ export function getCORSProxy() {
     return import.meta.env.DEV
         ? "https://cors-anywhere.herokuapp.com/"
         : "https://mohnishkalia-cors-proxy.onrender.com/";
+}
+
+/**
+ * Uses LFLists to create lookup object
+ * @returns lookup of card id to max limit
+ */
+export function getYGOBanlist(): YGOBanlist {
+    const rawTCG = YGOTCGBanlistRaw;
+
+    // split up lines, remove whitespace, don't consider comments or empty lines
+    const banlistLines = rawTCG
+        .split(/\r?\n/g)
+        .map(l => l.trim())
+        .filter(l => l && !l.startsWith('#') && !l.startsWith('!'));
+
+    // take first 2 numbers from each line [card id, max limit]
+    const banlistData = banlistLines
+        .map(l => l.match(/^(\d+) (\d)/))
+        .map(ms => ms.splice(1, 2).map(n => parseInt(n)) as BanlistEntry);
+
+    // construct object lookup out of entries
+    const result = Object.fromEntries(banlistData);
+
+    return result;
 }
