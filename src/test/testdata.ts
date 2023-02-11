@@ -1,11 +1,11 @@
 import type { CentralTendencies } from "../interfaces/common";
-import type { YGODecklist, YGOWordcount } from "../interfaces/ygo";
+import type { YGODecklist, YGOCardWithWordcount } from "../interfaces/ygo";
 
 //#region testingDecks
 
 type TestingDeckData = {
     decklist: YGODecklist,
-    wordCounts: YGOWordcount[],
+    wordCounts: YGOCardWithWordcount[],
     mct: CentralTendencies
 };
 
@@ -1663,7 +1663,7 @@ export const testingDecks: Record<SampleDecks, TestingDeckData> = {
 
 //#region testingDescs
 
-type TestingDescData = YGOWordcount;
+type TestingDescData = YGOCardWithWordcount;
 
 type SampleDescs = 'wordy' | 'special' | 'pendulum'
 

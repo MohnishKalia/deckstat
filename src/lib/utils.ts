@@ -1,6 +1,7 @@
 import YGOTCGBanlistRaw from "../../thirdparty/LFLists/0TCG.lflist.conf?raw";
+// import YGOTCGBanlistRaw from "../../thirdparty/LFLists/0TCG.new.lflist.conf?raw";
 import type { CentralTendencies } from "../interfaces/common";
-import type { BanlistPair as BanlistEntry, YGOBanlist, YGODecklist, YGOWordcount } from "../interfaces/ygo";
+import type { BanlistPair as BanlistEntry, YGOBanlist, YGOCardWithLimit, YGODecklist, YGOCardWithWordcount } from "../interfaces/ygo";
 
 export function wordCount(s: string): number {
     const normS = s
@@ -14,7 +15,7 @@ export function wordCount(s: string): number {
     return words.length;
 }
 
-export function getWordCounts(dl: YGODecklist): YGOWordcount[] {
+export function getWordCounts(dl: YGODecklist): YGOCardWithWordcount[] {
     const allCards = Object.values(dl).flatMap((cardType) => cardType);
     // console.log({
     //     dl,
@@ -78,7 +79,7 @@ export function getFrequencies(arr: number[]) {
     return histogramArr;
 }
 
-export function getMCT(wordCounts: YGOWordcount[]) {
+export function getMCT(wordCounts: YGOCardWithWordcount[]) {
     return getCentralTendencies(
         wordCounts.map((wc) => wc.wordCount)
     );
@@ -112,4 +113,22 @@ export function getYGOBanlist(): YGOBanlist {
     const result = Object.fromEntries(banlistData);
 
     return result;
+}
+
+export function getLimits(dl: YGODecklist, bl: YGOBanlist): YGOCardWithLimit[] {
+    const allCards = Object.values(dl).flatMap((cardType) => cardType);
+    // console.log({
+    //     dl,
+    //     bl,
+    //     allCards,
+    //     numAllCards: allCards.reduce((sum, cur) => sum + cur.num, 0),
+    // });
+
+    return allCards
+        .map((c) => ({
+            id: c.id,
+            name: c.name,
+            desc: c.desc,
+            limit: bl[c.id] ?? 3,
+        }));
 }

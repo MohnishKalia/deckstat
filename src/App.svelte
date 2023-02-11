@@ -21,11 +21,16 @@
     import { getYGODecklist } from "./lib/getygo";
     import Navbar from "./lib/Navbar.svelte";
     import ProviderDisplay from "./lib/ProviderDisplay.svelte";
-    import { getMCT, getWordCounts, getYGOBanlist } from "./lib/utils";
+    import {
+        getLimits,
+        getMCT,
+        getWordCounts,
+        getYGOBanlist,
+    } from "./lib/utils";
 
     let decklist_url: string = "";
-    // "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11"
-    // "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
+    // let decklist_url: string = "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11"
+    // let decklist_url: string = "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
     let decklist: YGODecklist;
 
     let db: Database;
@@ -68,6 +73,7 @@
     // TODO: Maybe turn this into const inline for the word count section,
     // or expand to include all statistics including wordcount
     $: wordCounts = decklist && getWordCounts(decklist);
+    $: limits = decklist && getLimits(decklist, banlist);
 </script>
 
 <main>
@@ -211,7 +217,6 @@
 
     <!-- Help Modal -->
     <input type="checkbox" id="help-modal" class="modal-toggle" />
-    <!-- <div class="modal modal-bottom sm:modal-middle"> -->
     <div class="modal">
         <div class="modal-box w-11/12 max-w-5xl relative">
             <label
@@ -264,11 +269,12 @@
         </div>
     </div>
 
+    <!-- Word Count -->
     {#if wordCounts}
         {@const mct = getMCT(wordCounts)}
         <!-- {@debug decklist, wordCounts, mct} -->
 
-        <section class="container mx-auto px-4">
+        <section class="container mx-auto px-4 my-32">
             <h2 class="my-5 text-3xl font-bold" id="word-count-section">
                 Word Count
             </h2>
@@ -359,7 +365,46 @@
         </section>
     {/if}
 
-    {#if decklist && banlist && wordCounts}
+    <!-- Banlist -->
+    {#if limits}
+        {@const banlistComp = [
+            limits.filter((c) => c.limit !== 3).length,
+            limits.length,
+        ]}
+        {@const banRatio = banlistComp[0] / banlistComp[1]}
+        <section class="container mx-auto px-4 my-32">
+            <h2 class="my-5 text-3xl font-bold" id="banlist-section">
+                Banlist
+            </h2>
+            <p>
+                How sacky/powercrept/Konami-targeted/inconsistent your deck is.
+            </p>
+
+            <h3 class="my-5 text-2xl font-bold text-left">Over your deck...</h3>
+            <div class="flex flex-col gap-24">
+                <p>
+                    You have <b class="text-lg text-accent">{banlistComp[1]}</b>
+                    unique cards, but
+                    <b class="text-lg text-accent">{banlistComp[0]}</b> ones with
+                    restrictions.
+                </p>
+                <p class="text-right">
+                    For reference, that is <b class="text-xl text-secondary"
+                        >{(100 * banRatio).toFixed(1)}%</b
+                    >
+                    of your deck.
+                </p>
+                {#if banRatio > 1 / 4}
+                    <p class="text-xl text-center">
+                        <b>That is a considerable amount of your deck!</b>
+                    </p>
+                {/if}
+            </div>
+        </section>
+    {/if}
+
+    <!-- raw results -->
+    {#if decklist && banlist && limits && wordCounts}
         <section class="container mx-auto px-4 overflow-clip">
             <div class="divider mt-4">raw results</div>
 
@@ -371,6 +416,11 @@
             <details class="bg-base-200 my-2">
                 <summary>Banlist</summary>
                 <pre>{JSON.stringify(banlist, null, 2)}</pre>
+            </details>
+
+            <details class="bg-base-200 my-2">
+                <summary>Limits</summary>
+                <pre>{JSON.stringify(limits, null, 2)}</pre>
             </details>
 
             <details class="bg-base-200 my-2">
