@@ -8,7 +8,7 @@
         IconFileImport,
         IconLink,
         IconTallymarks,
-        IconTimelineEvent
+        IconTimelineEvent,
     } from "@tabler/icons-svelte";
     import initSqlJs, { type Database } from "sql.js";
     import sqlWasm from "sql.js/dist/sql-wasm.wasm?url";
@@ -24,7 +24,9 @@
     import { getMCT, getWordCounts } from "./lib/utils";
 
     let decklist_url: string =
-        "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
+        ""
+        // "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11"
+        // "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
     let decklist: YGODecklist;
 
     let db: Database;

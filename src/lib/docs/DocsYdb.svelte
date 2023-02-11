@@ -45,7 +45,7 @@
             Image walkthrough below: <kbd>Shift + Scroll or Swipe</kbd>
         </p>
         <div
-            class="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box"
+            class="carousel carousel-center w-fit p-4 space-x-4 bg-neutral rounded-box"
         >
             <div class="carousel-item">
                 <img
