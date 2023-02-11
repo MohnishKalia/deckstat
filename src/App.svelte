@@ -8,7 +8,7 @@
         IconFileImport,
         IconLink,
         IconTallymarks,
-        IconTimelineEvent,
+        IconTimelineEvent
     } from "@tabler/icons-svelte";
     import initSqlJs, { type Database } from "sql.js";
     import sqlWasm from "sql.js/dist/sql-wasm.wasm?url";
@@ -190,18 +190,18 @@
 
     <section class="container mx-auto px-4 min-h-[50vh] text-center">
         {#if decklist}
-            <h2 class="my-5 text-4xl font-bold" id="content">Your Analysis</h2>
+            <h2 class="my-5 text-4xl font-bold" id="analysis-start-section">
+                Your Analysis
+            </h2>
             <p>Below are the things we found out about your deck...</p>
         {:else}
-            <h2 class="my-5 text-4xl font-bold" id="content">
+            <h2 class="my-5 text-4xl font-bold" id="analysis-start-section">
                 Provide a decklist above
             </h2>
             <p>Astral insight awaits.</p>
 
-            <label for="help-modal"
-                ><button class="btn text-3xl mt-20 normal-case"
-                    >Having difficulties?</button
-                ></label
+            <label for="help-modal" class="btn text-3xl mt-20 normal-case"
+                ><span>Having difficulties?</span></label
             >
         {/if}
     </section>
@@ -266,7 +266,9 @@
         <!-- {@debug decklist, wordCounts, mct} -->
 
         <section class="container mx-auto px-4">
-            <h2 class="my-5 text-3xl font-bold" id="content">Word Count</h2>
+            <h2 class="my-5 text-3xl font-bold" id="word-count-section">
+                Word Count
+            </h2>
             <p>
                 Whether or not people can play against your rouge deck without
                 live commentary on each effect.
