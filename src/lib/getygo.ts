@@ -23,9 +23,30 @@ const cardTypes = {
 };
 
 /**
+ * Helper function to transform db type to card type
+ * @param row a row matching YGOCard from db query
+ * @returns a row applied with human readable card type
+ */
+function mapDBTypeToCardType(row: YGOCard): YGOCard {
+    let type = '';
+
+    if (!row.type || (+row.type & cardTypes.na.flag) === cardTypes.na.flag)
+        type = cardTypes.na.text;
+    else if ((+row.type & cardTypes.monster.flag) === cardTypes.monster.flag)
+        type = cardTypes.monster.text;
+    else if ((+row.type & cardTypes.spell.flag) === cardTypes.spell.flag)
+        type = cardTypes.spell.text;
+    else if ((+row.type & cardTypes.trap.flag) === cardTypes.trap.flag)
+        type = cardTypes.trap.text;
+
+    return { ...row, type };
+}
+
+/**
  * Gets extra data for cards with names in the decklist.
  * 
  * Should only used for Neuron / YGO Card DB, since they don't use the passcode ids.
+ * @throws database error
  * @param cdb card database
  * @param dl decklist of cards with PK of names
  * @returns a full decklist with data from cdb
@@ -36,57 +57,45 @@ export async function getDBAdditionsByName(cdb: Database, dl: NameDecklist): Pro
     for (const [cardType, cards] of Object.entries(
         dl
     ) as NameDecklistEntries) {
-        cdb.run("DROP TABLE IF EXISTS current_cards_name;");
-        cdb.run("CREATE TEMP TABLE current_cards_name (name TEXT, num INTEGER);");
+        try {
+            cdb.run("DROP TABLE IF EXISTS current_cards_name;");
+            cdb.run("CREATE TEMP TABLE current_cards_name (name TEXT, num INTEGER);");
 
-        cdb.run("BEGIN TRANSACTION;");
-        for (const card of cards) {
-            cdb.run("INSERT INTO current_cards_name VALUES (?, ?);", [
-                card.name,
-                card.num,
-            ]);
+            cdb.run("BEGIN TRANSACTION;");
+            for (const card of cards) {
+                cdb.run("INSERT INTO current_cards_name VALUES (?, ?);", [
+                    card.name,
+                    card.num,
+                ]);
+            }
+            cdb.run("COMMIT;");
+
+            const stmt = cdb.prepare(`
+                with arn as ( 
+                    select t.id, t.name, cc.num, t.desc, d.type,
+                    ROW_NUMBER() OVER (PARTITION BY t.name ORDER BY length(t.desc) ASC) AS rn
+                    from texts t
+                    inner join datas d
+                        on t.id = d.id
+                    inner join current_cards_name cc
+                        on t.name = cc.name
+                )
+                select id, name, num, desc, type
+                from arn 
+                where rn = 1
+            `);
+
+            const rows = [] as YGOCard[];
+            while (stmt.step()) {
+                const row = stmt.getAsObject() as unknown as YGOCard;
+                rows.push(row);
+            }
+            stmt.free();
+
+            result[cardType] = rows.map(mapDBTypeToCardType);
+        } catch (error) {
+            throw new Error('Issue obtaining data from database');
         }
-        cdb.run("COMMIT;");
-
-        const stmt = cdb.prepare(`
-            with arn as ( 
-                select t.id, t.name, cc.num, t.desc, d.type,
-                ROW_NUMBER() OVER (PARTITION BY t.name ORDER BY length(t.desc) ASC) AS rn
-                from texts t
-                inner join datas d
-                    on t.id = d.id
-                inner join current_cards_name cc
-                    on t.name = cc.name
-            )
-            select id, name, num, desc, type
-            from arn 
-            where rn = 1
-        `);
-
-        const rows = [] as YGOCard[];
-        while (stmt.step()) {
-            const row = stmt.getAsObject() as unknown as YGOCard;
-            rows.push(row);
-        }
-        stmt.free();
-
-        result[cardType] = rows.map((row) => {
-            let type = '';
-
-            if (row.name === 'Zombie World')
-                debugger;
-
-            if (!row.type || (+row.type & cardTypes.na.flag) === cardTypes.na.flag)
-                type = cardTypes.na.text;
-            else if ((+row.type & cardTypes.monster.flag) === cardTypes.monster.flag)
-                type = cardTypes.monster.text;
-            else if ((+row.type & cardTypes.spell.flag) === cardTypes.spell.flag)
-                type = cardTypes.spell.text;
-            else if ((+row.type & cardTypes.trap.flag) === cardTypes.trap.flag)
-                type = cardTypes.trap.text;
-
-            return { ...row, type };
-        });
     }
 
     return result;
@@ -96,6 +105,7 @@ export async function getDBAdditionsByName(cdb: Database, dl: NameDecklist): Pro
  * Gets extra data for cards with ids in the decklist.
  * 
  * Unofficial platforms give the passcode information, which is used here.
+ * @throws database error
  * @param cdb card database
  * @param dl decklist of cards with PK of ids
  * @returns a full decklist with data from cdb
@@ -108,50 +118,45 @@ export async function getDBAdditionsById(cdb: Database, dl: IdDecklist): Promise
     for (const [cardType, cards] of Object.entries(
         dl
     ) as IdDecklistEntries) {
-        cdb.run("DROP TABLE IF EXISTS current_cards_id;");
-        cdb.run("CREATE TEMP TABLE current_cards_id (id INTEGER, num INTEGER);");
+        try {
+            cdb.run("DROP TABLE IF EXISTS current_cards_id;");
+            cdb.run("CREATE TEMP TABLE current_cards_id (id INTEGER, num INTEGER);");
 
-        cdb.run("BEGIN TRANSACTION;");
-        for (const card of cards) {
-            cdb.run("INSERT INTO current_cards_id VALUES (?, ?);", [
-                card.id,
-                card.num,
-            ]);
+            cdb.run("BEGIN TRANSACTION;");
+            for (const card of cards) {
+                cdb.run("INSERT INTO current_cards_id VALUES (?, ?);", [
+                    card.id,
+                    card.num,
+                ]);
+            }
+            cdb.run("COMMIT;");
+
+            const stmt = cdb.prepare(`
+                with arn as ( 
+                    select t.id, t.name, cc.num, t.desc, d.type,
+                    ROW_NUMBER() OVER (PARTITION BY t.name ORDER BY length(t.desc) ASC) AS rn
+                    from texts t
+                    inner join datas d
+                        on t.id = d.id
+                    inner join current_cards_id cc
+                        on t.id = cc.id
+                )
+                select id, name, num, desc, type
+                from arn 
+                where rn = 1
+            `);
+
+            const rows = [] as YGOCard[];
+            while (stmt.step()) {
+                const row = stmt.getAsObject() as unknown as YGOCard;
+                rows.push(row);
+            }
+            stmt.free();
+
+            dbRet[cardType] = rows.map(mapDBTypeToCardType);
+        } catch (error) {
+            throw new Error('Issue obtaining data from database');
         }
-        cdb.run("COMMIT;");
-
-        const stmt = cdb.prepare(`
-            with arn as ( 
-                select t.id, t.name, cc.num, t.desc, d.type,
-                ROW_NUMBER() OVER (PARTITION BY t.name ORDER BY length(t.desc) ASC) AS rn
-                from texts t
-                inner join datas d
-                    on t.id = d.id
-                inner join current_cards_id cc
-                    on t.id = cc.id
-            )
-            select id, name, num, desc, type
-            from arn 
-            where rn = 1
-        `);
-
-        const rows = [] as YGOCard[];
-        while (stmt.step()) {
-            const row = stmt.getAsObject() as unknown as YGOCard;
-            rows.push(row);
-        }
-        stmt.free();
-
-        dbRet[cardType] = rows.map((row) => {
-            let type = '';
-
-            if (!row.type || (+row.type & cardTypes.na.flag) === cardTypes.na.flag) type = cardTypes.na.text;
-            else if ((+row.type & cardTypes.monster.flag) === cardTypes.monster.flag) type = cardTypes.monster.text;
-            else if ((+row.type & cardTypes.spell.flag) === cardTypes.spell.flag) type = cardTypes.spell.text;
-            else if ((+row.type & cardTypes.trap.flag) === cardTypes.trap.flag) type = cardTypes.trap.text;
-
-            return { ...row, type };
-        });
     }
 
     result.monsters = dbRet.mains.filter(c => c.type === cardTypes.monster.text);
