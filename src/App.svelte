@@ -18,13 +18,15 @@
     import DocsYdb from "./lib/docs/DocsYdb.svelte";
     import DocsYdke from "./lib/docs/DocsYdke.svelte";
     import Footer from "./lib/Footer.svelte";
+    import { getYGODecklist } from "./lib/getygo";
     import Navbar from "./lib/Navbar.svelte";
     import ProviderDisplay from "./lib/ProviderDisplay.svelte";
-    import { getDBAdditions, getMCT, getWordCounts } from "./lib/utils";
-    import { getYDBDecklist } from "./lib/ydb";
+    import { getMCT, getWordCounts } from "./lib/utils";
 
     let decklist_url: string =
-        "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11";
+        ""
+        // "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11"
+        // "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
     let decklist: YGODecklist;
 
     let db: Database;
@@ -34,7 +36,7 @@
     let tabs = [
         { name: "Neuron", disabled: false },
         { name: ".ydk", disabled: true },
-        { name: "ydke://", disabled: true },
+        { name: "ydke://", disabled: false },
         { name: "DBook", disabled: true },
     ];
     let activeTab = 0;
@@ -62,6 +64,8 @@
         .catch((_) => (errText = "Internal DB not loaded."));
 
     $: dbNotLoaded = db ? "" : "btn-disabled cursor-not-allowed";
+    // TODO: Maybe turn this into const inline for the word count section,
+    // or expand to include all statistics including wordcount
     $: wordCounts = decklist && getWordCounts(decklist);
 </script>
 
@@ -126,12 +130,12 @@
                             aria-label="Load decklist button"
                             class="btn btn-square {dbNotLoaded}"
                             on:click={(_) =>
-                                getYDBDecklist(decklist_url)
-                                    .then((data) => getDBAdditions(db, data))
+                                getYGODecklist(db, decklist_url)
                                     .then((dl) => (decklist = dl))
                                     .catch(
-                                        (_) =>
+                                        (err) =>
                                             (errText =
+                                                err?.message ??
                                                 "The decklist provided was not valid.")
                                     )}
                         >
@@ -164,8 +168,8 @@
                 </ProviderDisplay>
                 <ProviderDisplay
                     provider="ydke://"
-                    example="ydke://o6lXBa70zAJKcEkDHQSLAhLZoALUmP0B!!!"
-                    disabled
+                    example="ydke://o6lXBUpwSQMS2aAC!viOnArXwAQU=!rvTMAh0EiwLUmP0B!"
+                    disabled={false}
                 >
                     <IconLink
                         slot="icon"
@@ -188,16 +192,18 @@
 
     <section class="container mx-auto px-4 min-h-[50vh] text-center">
         {#if decklist}
-            <h2 class="my-5 text-4xl font-bold" id="content">Your Analysis</h2>
+            <h2 class="my-5 text-4xl font-bold" id="analysis-start-section">
+                Your Analysis
+            </h2>
             <p>Below are the things we found out about your deck...</p>
         {:else}
-            <h2 class="my-5 text-4xl font-bold" id="content">
+            <h2 class="my-5 text-4xl font-bold" id="analysis-start-section">
                 Provide a decklist above
             </h2>
             <p>Astral insight awaits.</p>
 
             <label for="help-modal" class="btn text-3xl mt-20 normal-case"
-                >Having difficulties?</label
+                ><span>Having difficulties?</span></label
             >
         {/if}
     </section>
@@ -262,7 +268,9 @@
         <!-- {@debug decklist, wordCounts, mct} -->
 
         <section class="container mx-auto px-4">
-            <h2 class="my-5 text-3xl font-bold" id="content">Word Count</h2>
+            <h2 class="my-5 text-3xl font-bold" id="word-count-section">
+                Word Count
+            </h2>
             <p>
                 Whether or not people can play against your rouge deck without
                 live commentary on each effect.

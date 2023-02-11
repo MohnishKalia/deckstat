@@ -1,6 +1,5 @@
-import type { Database } from "sql.js";
 import type { CentralTendencies } from "../interfaces/common";
-import type { YDBDecklist, YDBDecklistEntries, YGODecklist, YGOWordcount } from "../interfaces/ygo";
+import type { YGODecklist, YGOWordcount } from "../interfaces/ygo";
 
 export function wordCount(s: string): number {
     const normS = s
@@ -43,21 +42,11 @@ export function getCentralTendencies(arr: number[]): CentralTendencies {
 
     const sum = arr.reduce((sum, cur) => sum + cur, 0);
 
-    const histogram = arr.reduce((prev, cur) => {
-        if (!prev[cur]) prev[cur] = 1;
-        else prev[cur]++;
-        return prev;
-    }, {} as Record<number, number>);
-    const histogramArr = Object.entries(histogram).map(([val, cnt]) => ({
-        val,
-        cnt,
-    }));
+    const histogramArr = getFrequencies(arr);
 
     const mean = sum / arr.length;
     const median = arr[Math.floor(arr.length / 2)]; // needs to be an arr element
-    const mode = parseFloat(
-        histogramArr.sort((v1, v2) => v2.cnt - v1.cnt)[0]?.val
-    );
+    const mode = histogramArr.sort((v1, v2) => v2.cnt - v1.cnt)[0]?.val;
 
     // console.log({ arr, sum, histogram, mean, median, mode });
 
@@ -68,54 +57,29 @@ export function getCentralTendencies(arr: number[]): CentralTendencies {
     };
 }
 
+export function getFrequencies(arr: number[]) {
+    const histogram = arr.reduce((prev, cur) => {
+        if (!prev[cur])
+            prev[cur] = 1;
+        else
+            prev[cur]++;
+        return prev;
+    }, {} as Record<number, number>);
+    const histogramArr = Object.entries(histogram).map(([val, cnt]) => ({
+        val: parseInt(val),
+        cnt,
+    }));
+    return histogramArr;
+}
+
 export function getMCT(wordCounts: YGOWordcount[]) {
     return getCentralTendencies(
         wordCounts.map((wc) => wc.wordCount)
     );
 }
 
-export async function getDBAdditions(cdb: Database, dl: YDBDecklist): Promise<YGODecklist> {
-    const result = {} as YGODecklist;
-
-    for (const [cardType, cards] of Object.entries(
-        dl
-    ) as YDBDecklistEntries) {
-        cdb.run("DROP TABLE IF EXISTS current_cards;");
-        cdb.run("CREATE TEMP TABLE current_cards (name TEXT, num INTEGER);");
-
-        cdb.run("BEGIN TRANSACTION;");
-        for (const card of cards) {
-            cdb.run("INSERT INTO current_cards VALUES (?, ?);", [
-                card.name,
-                card.num,
-            ]);
-        }
-        cdb.run("COMMIT;");
-
-        const stmt = cdb.prepare(`
-            with arn as ( 
-                select t.id, t.name, cc.num, t.desc,
-                ROW_NUMBER() OVER (PARTITION BY t.name ORDER BY length(t.desc) ASC) AS rn
-                from texts t
-                inner join datas d
-                    on t.id = d.id
-                inner join current_cards cc
-                    on t.name = cc.name
-            )
-            select id, name, num, desc
-            from arn 
-            where rn = 1
-        `);
-
-        const rows = [];
-        while (stmt.step()) {
-            const row = stmt.getAsObject();
-            rows.push(row);
-        }
-        stmt.free();
-
-        result[cardType] = rows;
-    }
-
-    return result;
+export function getCORSProxy() {
+    return import.meta.env.DEV
+        ? "https://cors-anywhere.herokuapp.com/"
+        : "https://mohnishkalia-cors-proxy.onrender.com/";
 }
