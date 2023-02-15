@@ -2,3 +2,6 @@
 	path = thirdparty/BabelCDB
 	url = https://github.com/ProjectIgnis/BabelCDB.git
 	shallow = true
+[submodule "thirdparty/LFLists"]
+	path = thirdparty/LFLists
+	url = https://github.com/ProjectIgnis/LFLists.git

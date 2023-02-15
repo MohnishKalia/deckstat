@@ -3,9 +3,13 @@
         IconAddressBook,
         IconAlertOctagon,
         IconArrowRight,
+        IconBan,
         IconChartHistogram,
+        IconCircleNumber1,
+        IconCircleNumber2,
         IconDatabaseExport,
         IconFileImport,
+        IconInfinity,
         IconLink,
         IconTallymarks,
         IconTimelineEvent,
@@ -21,12 +25,17 @@
     import { getYGODecklist } from "./lib/getygo";
     import Navbar from "./lib/Navbar.svelte";
     import ProviderDisplay from "./lib/ProviderDisplay.svelte";
-    import { getMCT, getWordCounts } from "./lib/utils";
+    import {
+        getLimits,
+        getMCT,
+        getWordCounts,
+        getYGOBanlist,
+    } from "./lib/utils";
 
+    // let decklist_url: string = "";
+    // let decklist_url: string = "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11"
     let decklist_url: string =
-        ""
-        // "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11"
-        // "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
+        "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
     let decklist: YGODecklist;
 
     let db: Database;
@@ -40,6 +49,8 @@
         { name: "DBook", disabled: true },
     ];
     let activeTab = 0;
+
+    const banlist = getYGOBanlist();
 
     async function getDatabase() {
         const dataPromise = fetch(CardsCDB).then((res) => res.arrayBuffer());
@@ -67,6 +78,7 @@
     // TODO: Maybe turn this into const inline for the word count section,
     // or expand to include all statistics including wordcount
     $: wordCounts = decklist && getWordCounts(decklist);
+    $: limits = decklist && getLimits(decklist, banlist);
 </script>
 
 <main>
@@ -125,7 +137,7 @@
                             class="input input-bordered input-md w-full"
                         />
                         <a
-                            href="#content"
+                            href="#analysis-start-section"
                             role="button"
                             aria-label="Load decklist button"
                             class="btn btn-square {dbNotLoaded}"
@@ -210,7 +222,6 @@
 
     <!-- Help Modal -->
     <input type="checkbox" id="help-modal" class="modal-toggle" />
-    <!-- <div class="modal modal-bottom sm:modal-middle"> -->
     <div class="modal">
         <div class="modal-box w-11/12 max-w-5xl relative">
             <label
@@ -263,11 +274,12 @@
         </div>
     </div>
 
+    <!-- Word Count -->
     {#if wordCounts}
         {@const mct = getMCT(wordCounts)}
         <!-- {@debug decklist, wordCounts, mct} -->
 
-        <section class="container mx-auto px-4">
+        <section class="container mx-auto px-4 my-32">
             <h2 class="my-5 text-3xl font-bold" id="word-count-section">
                 Word Count
             </h2>
@@ -358,18 +370,130 @@
         </section>
     {/if}
 
-    {#if decklist}
+    <!-- Banlist -->
+    {#if limits}
+        {@const flLists = [
+            limits.filter((c) => c.limit === 0),
+            limits.filter((c) => c.limit === 1),
+            limits.filter((c) => c.limit === 2),
+            limits.filter((c) => c.limit === 3),
+        ]}
+        {@const banlistComp = [
+            limits.filter((c) => c.limit !== 3).length,
+            limits.length,
+        ]}
+        {@const banRatio = banlistComp[0] / (banlistComp[1] || 1)}
+
+        <section class="container mx-auto px-4 my-32">
+            <h2 class="my-5 text-3xl font-bold" id="banlist-section">
+                Banlist
+            </h2>
+            <p>
+                How sacky/powercrept/Konami-targeted/inconsistent your deck is.
+            </p>
+
+            <h3 class="my-5 text-2xl font-bold text-left">Over your deck...</h3>
+            <div class="flex flex-col gap-24">
+                <p>
+                    You have <b class="text-lg text-accent">{banlistComp[1]}</b>
+                    unique cards, but
+                    <b class="text-lg text-accent">{banlistComp[0]}</b> ones with
+                    restrictions.
+                </p>
+                <p class="text-right">
+                    For reference, that is <b class="text-xl text-secondary"
+                        >{(100 * banRatio).toFixed(1)}%</b
+                    >
+                    of your deck.
+                </p>
+                {#if banRatio > 1 / 10}
+                    <p class="text-xl text-center">
+                        <b>That is a considerable amount of your deck!</b>
+                    </p>
+                {/if}
+                {#if flLists[0].length > 0}
+                    <p class="text-xl text-center">
+                        You even have <b>banned cards!</b> Take them out!
+                    </p>
+                {/if}
+            </div>
+
+            <div class="divider" />
+
+            <h3 class="my-5 text-2xl font-bold text-center">In specifics...</h3>
+            <div class="flex flex-col gap-24">
+                <div class="stats shadow-inner bg-base-200">
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconBan class="inline-block" />
+                        </div>
+                        <div class="stat-title">F ⓪</div>
+                        <div class="stat-value">
+                            {flLists[0].length} cards
+                        </div>
+                        <div class="stat-desc">Forbidden</div>
+                    </div>
+
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconCircleNumber1 class="inline-block" />
+                        </div>
+                        <div class="stat-title">L ①</div>
+                        <div class="stat-value">
+                            {flLists[1].length} cards
+                        </div>
+                        <div class="stat-desc">Limited</div>
+                    </div>
+
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconCircleNumber2 class="inline-block" />
+                        </div>
+                        <div class="stat-title">S ②</div>
+                        <div class="stat-value">
+                            {flLists[2].length} cards
+                        </div>
+                        <div class="stat-desc">Semi-Limited</div>
+                    </div>
+
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconInfinity class="inline-block" />
+                        </div>
+                        <div class="stat-title">U ③</div>
+                        <div class="stat-value">
+                            {flLists[3].length} cards
+                        </div>
+                        <div class="stat-desc">Unlimited</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {/if}
+
+    <!-- raw results -->
+    {#if decklist && banlist && limits && wordCounts}
         <section class="container mx-auto px-4 overflow-clip">
             <div class="divider mt-4">raw results</div>
 
             <details class="bg-base-200 my-2">
-                <summary>Word Count</summary>
-                <pre>{JSON.stringify(wordCounts, null, 2)}</pre>
+                <summary>Raw Decklist</summary>
+                <pre>{JSON.stringify(decklist, null, 2)}</pre>
             </details>
 
             <details class="bg-base-200 my-2">
-                <summary>Raw Decklist</summary>
-                <pre>{JSON.stringify(decklist, null, 2)}</pre>
+                <summary>Banlist</summary>
+                <pre>{JSON.stringify(banlist, null, 2)}</pre>
+            </details>
+
+            <details class="bg-base-200 my-2">
+                <summary>Limits</summary>
+                <pre>{JSON.stringify(limits, null, 2)}</pre>
+            </details>
+
+            <details class="bg-base-200 my-2">
+                <summary>Word Count</summary>
+                <pre>{JSON.stringify(wordCounts, null, 2)}</pre>
             </details>
         </section>
     {/if}

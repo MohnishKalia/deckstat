@@ -1,5 +1,7 @@
+import YGOTCGBanlistRaw from "../../thirdparty/LFLists/0TCG.lflist.conf?raw";
+// import YGOTCGBanlistRaw from "../../thirdparty/LFLists/0TCG.new.lflist.conf?raw";
 import type { CentralTendencies } from "../interfaces/common";
-import type { YGODecklist, YGOWordcount } from "../interfaces/ygo";
+import type { BanlistPair as BanlistEntry, YGOBanlist, YGOCardWithLimit, YGODecklist, YGOCardWithWordcount } from "../interfaces/ygo";
 
 export function wordCount(s: string): number {
     const normS = s
@@ -13,7 +15,7 @@ export function wordCount(s: string): number {
     return words.length;
 }
 
-export function getWordCounts(dl: YGODecklist): YGOWordcount[] {
+export function getWordCounts(dl: YGODecklist): YGOCardWithWordcount[] {
     const allCards = Object.values(dl).flatMap((cardType) => cardType);
     // console.log({
     //     dl,
@@ -57,6 +59,11 @@ export function getCentralTendencies(arr: number[]): CentralTendencies {
     };
 }
 
+/**
+ * Obtains frequency of numbers within an array
+ * @param arr array of numbers to process
+ * @returns an object with each number and its frequency
+ */
 export function getFrequencies(arr: number[]) {
     const histogram = arr.reduce((prev, cur) => {
         if (!prev[cur])
@@ -72,7 +79,7 @@ export function getFrequencies(arr: number[]) {
     return histogramArr;
 }
 
-export function getMCT(wordCounts: YGOWordcount[]) {
+export function getMCT(wordCounts: YGOCardWithWordcount[]) {
     return getCentralTendencies(
         wordCounts.map((wc) => wc.wordCount)
     );
@@ -82,4 +89,46 @@ export function getCORSProxy() {
     return import.meta.env.DEV
         ? "https://cors-anywhere.herokuapp.com/"
         : "https://mohnishkalia-cors-proxy.onrender.com/";
+}
+
+/**
+ * Uses LFLists to create lookup object
+ * @returns lookup of card id to max limit
+ */
+export function getYGOBanlist(): YGOBanlist {
+    const rawTCG = YGOTCGBanlistRaw;
+
+    // split up lines, remove whitespace, don't consider comments or empty lines
+    const banlistLines = rawTCG
+        .split(/\r?\n/g)
+        .map(l => l.trim())
+        .filter(l => l && !l.startsWith('#') && !l.startsWith('!'));
+
+    // take first 2 numbers from each line [card id, max limit]
+    const banlistData = banlistLines
+        .map(l => l.match(/^(\d+) (\d)/))
+        .map(ms => ms.splice(1, 2).map(n => parseInt(n)) as BanlistEntry);
+
+    // construct object lookup out of entries
+    const result = Object.fromEntries(banlistData);
+
+    return result;
+}
+
+export function getLimits(dl: YGODecklist, bl: YGOBanlist): YGOCardWithLimit[] {
+    const allCards = Object.values(dl).flatMap((cardType) => cardType);
+    // console.log({
+    //     dl,
+    //     bl,
+    //     allCards,
+    //     numAllCards: allCards.reduce((sum, cur) => sum + cur.num, 0),
+    // });
+
+    return allCards
+        .map((c) => ({
+            id: c.id,
+            name: c.name,
+            desc: c.desc,
+            limit: bl[c.id] ?? 3,
+        }));
 }
