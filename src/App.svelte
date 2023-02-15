@@ -3,9 +3,13 @@
         IconAddressBook,
         IconAlertOctagon,
         IconArrowRight,
+        IconBan,
         IconChartHistogram,
+        IconCircleNumber1,
+        IconCircleNumber2,
         IconDatabaseExport,
         IconFileImport,
+        IconInfinity,
         IconLink,
         IconTallymarks,
         IconTimelineEvent,
@@ -28,9 +32,10 @@
         getYGOBanlist,
     } from "./lib/utils";
 
-    let decklist_url: string = "";
+    // let decklist_url: string = "";
     // let decklist_url: string = "https://www.db.yugioh-card.com/yugiohdb/member_deck.action?ope=1&cgid=15e16e034ce4d4822074831588f10839&dno=11"
-    // let decklist_url: string = "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
+    let decklist_url: string =
+        "ydke://sr0IALK9CACyvQgA8UBDAvFAQwLxQEMCL1hqBC9YagQvWGoEOH1oBDh9aATkdwcBKe+2AynvtgM2nIsBNpyLATaciwHzkskD85LJA/OSyQPz6vQF8+r0BfPq9AWglAQCoJQEAqCUBAITR2UALzmXA1l7YwTUJxwAToOYBE6DmAROg5gEm0RnAJtEZwBSDZkDHjeCAR43ggF6gEoCiTJ3BIkydwQiSJkAIkiZACJImQA=!tUwrBEiIswB+iUMDurOuAfn3hgVHyAYFlyFkBfhqpAEp6rwC0htBAWBMZgURNNIFqRp+AHTOoQF0qk8E!Ek8oBBNHZQDiWJ0D4lidA+JYnQO7x/cDAAQ+AB43ggEj1p0CI9adAiPWnQImkEIDJpBCAyaQQgPUSRQA!";
     let decklist: YGODecklist;
 
     let db: Database;
@@ -367,11 +372,18 @@
 
     <!-- Banlist -->
     {#if limits}
+        {@const flLists = [
+            limits.filter((c) => c.limit === 0),
+            limits.filter((c) => c.limit === 1),
+            limits.filter((c) => c.limit === 2),
+            limits.filter((c) => c.limit === 3),
+        ]}
         {@const banlistComp = [
             limits.filter((c) => c.limit !== 3).length,
             limits.length,
         ]}
-        {@const banRatio = banlistComp[0] / banlistComp[1]}
+        {@const banRatio = banlistComp[0] / (banlistComp[1] || 1)}
+
         <section class="container mx-auto px-4 my-32">
             <h2 class="my-5 text-3xl font-bold" id="banlist-section">
                 Banlist
@@ -394,11 +406,67 @@
                     >
                     of your deck.
                 </p>
-                {#if banRatio > 1 / 4}
+                {#if banRatio > 1 / 10}
                     <p class="text-xl text-center">
                         <b>That is a considerable amount of your deck!</b>
                     </p>
                 {/if}
+                {#if flLists[0].length > 0}
+                    <p class="text-xl text-center">
+                        You even have <b>banned cards!</b> Take them out!
+                    </p>
+                {/if}
+            </div>
+
+            <div class="divider" />
+
+            <h3 class="my-5 text-2xl font-bold text-center">In specifics...</h3>
+            <div class="flex flex-col gap-24">
+                <div class="stats shadow-inner bg-base-200">
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconBan class="inline-block" />
+                        </div>
+                        <div class="stat-title">F ⓪</div>
+                        <div class="stat-value">
+                            {flLists[0].length} cards
+                        </div>
+                        <div class="stat-desc">Forbidden</div>
+                    </div>
+
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconCircleNumber1 class="inline-block" />
+                        </div>
+                        <div class="stat-title">L ①</div>
+                        <div class="stat-value">
+                            {flLists[1].length} cards
+                        </div>
+                        <div class="stat-desc">Limited</div>
+                    </div>
+
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconCircleNumber2 class="inline-block" />
+                        </div>
+                        <div class="stat-title">S ②</div>
+                        <div class="stat-value">
+                            {flLists[2].length} cards
+                        </div>
+                        <div class="stat-desc">Semi-Limited</div>
+                    </div>
+
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <IconInfinity class="inline-block" />
+                        </div>
+                        <div class="stat-title">U ③</div>
+                        <div class="stat-value">
+                            {flLists[3].length} cards
+                        </div>
+                        <div class="stat-desc">Unlimited</div>
+                    </div>
+                </div>
             </div>
         </section>
     {/if}
